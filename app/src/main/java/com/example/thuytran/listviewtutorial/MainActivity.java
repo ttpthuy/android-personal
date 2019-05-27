@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        myAdapter = new MyAdapter(this,R.layout.activity_row_list_view,questionList);
+        myAdapter = new MyAdapter(this, R.layout.activity_row_list_view, questionList);
         listView.setAdapter(myAdapter);
 
 
@@ -50,48 +50,16 @@ public class MainActivity extends AppCompatActivity {
         downloadJSON.execute();
         String dataJSON = downloadJSON.get();
         JSONArray jsonArrayDanhSachSanPham = new JSONArray(dataJSON);
-
-        List<Map.Entry<Integer, Question>> listMap = new ArrayList<Map.Entry<Integer, Question>>();
-//        Map<String, Object> questionMap = toMap(jsonArrayDanhSachSanPham);
+//        List<Question> questions = new ArrayList<>();
         for (int i = 0 ; i < jsonArrayDanhSachSanPham.length(); i++){
-            listMap.add((Map.Entry<Integer, Question>) jsonArrayDanhSachSanPham.get(i));
+            JSONObject object = jsonArrayDanhSachSanPham.getJSONObject(i);
+            questionList.add(new Question(object));
         }
-        Log.i("questionListing", listMap + "");
-        questionList.addAll(listMap)
+        Log.i("questionListing", questionList + "");
+        Collections.shuffle(questionList);
     }
 
-    public static Map<String, Object> toMap(JSONObject object) throws JSONException {
-        Map<String, Object> map = new HashMap<String, Object>();
 
-        Iterator<String> keysItr = object.keys();
-        while(keysItr.hasNext()) {
-            String key = keysItr.next();
-            Object value = object.get(key);
 
-            if(value instanceof JSONArray) {
-                value = toList((JSONArray) value);
-            }
 
-            else if(value instanceof JSONObject) {
-                value = toMap((JSONObject) value);
-            }
-            map.put(key, value);
-        }
-        return map;
-    }
-    public static List<Object> toList(JSONArray array) throws JSONException {
-        List<Object> list = new ArrayList<Object>();
-        for(int i = 0; i < array.length(); i++) {
-            Object value = array.get(i);
-            if(value instanceof JSONArray) {
-                value = toList((JSONArray) value);
-            }
-
-            else if(value instanceof JSONObject) {
-                value = toMap((JSONObject) value);
-            }
-            list.add(value);
-        }
-        return list;
-    }
 }

@@ -27,7 +27,7 @@ public class intro extends AppCompatActivity {
 
     }
     private void setBtnTakeATest (){
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, check_score.class);
         startActivity(intent);
     }
 }

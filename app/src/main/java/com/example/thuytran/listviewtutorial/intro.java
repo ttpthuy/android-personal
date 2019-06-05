@@ -1,6 +1,5 @@
 package com.example.thuytran.listviewtutorial;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -27,7 +26,7 @@ public class intro extends AppCompatActivity {
 
     }
     private void setBtnTakeATest (){
-        Intent intent = new Intent(this, check_score.class);
+        Intent intent = new Intent(this, ScoreTable.class);
         startActivity(intent);
     }
 }

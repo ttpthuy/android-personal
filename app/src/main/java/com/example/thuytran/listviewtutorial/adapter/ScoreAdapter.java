@@ -1,4 +1,4 @@
-package com.example.thuytran.listviewtutorial;
+package com.example.thuytran.listviewtutorial.adapter;
 
 import android.content.Context;
 import android.util.Log;
@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
+import com.example.thuytran.listviewtutorial.R;
 
 import java.util.ArrayList;
 import java.util.List;

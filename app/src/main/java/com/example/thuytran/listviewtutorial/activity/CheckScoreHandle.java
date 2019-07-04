@@ -1,4 +1,4 @@
-package com.example.thuytran.listviewtutorial;
+package com.example.thuytran.listviewtutorial.activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -8,23 +8,17 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
-import com.android.volley.*;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
+import com.example.thuytran.listviewtutorial.R;
+import com.example.thuytran.listviewtutorial.jsonconvert.DownloadJSON;
+import com.example.thuytran.listviewtutorial.jsonconvert.PostToServer;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 public class CheckScoreHandle extends AppCompatActivity {
@@ -38,9 +32,10 @@ public class CheckScoreHandle extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_score);
-
         initElement();
-        getData();
+        for (int i = 0; i < idButton; i ++){
+            getData();
+        }
         Log.i("checkScore", "checkScore");
         Log.i("listSub", subjects + "");
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.score_row, R.id.textSubject, subjects);
@@ -57,7 +52,6 @@ public class CheckScoreHandle extends AppCompatActivity {
     public void initElement() {
         Intent intent = getIntent();
         idButton = intent.getIntExtra("level", 2131165277 );
-        Log.i("radioClcik2", idButton + "");
         listViewScore = (ListView) findViewById(R.id.scoreLV);
         btnSendScore = (Button) findViewById(R.id.btnSendScore);
         subjects = new ArrayList<>();
@@ -75,7 +69,7 @@ public class CheckScoreHandle extends AppCompatActivity {
         });
     }
     public void sendScore() throws ExecutionException, InterruptedException {
-        DownloadJSON downloadJSON = new DownloadJSON("http://10.0.3.2:8080/demo");
+//        DownloadJSON downloadJSON = new DownloadJSON("http://10.0.3.2:8080/demo");
 
 //        String dataJSON = downloadJSON.get();
 //        Log.i("demo1", dataJSON);
@@ -95,7 +89,7 @@ public class CheckScoreHandle extends AppCompatActivity {
 
         Gson gsonBuilder = new GsonBuilder().create();
 
-        String jsonFromJavaArrayList = gsonBuilder.toJson(attrs);
+        String jsonFromJavaArrayList = gsonBuilder.toJson(json);
 
         System.out.println(jsonFromJavaArrayList);
         Log.i("tojson", jsonFromJavaArrayList);

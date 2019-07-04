@@ -11,22 +11,26 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".welcome">
+        <activity android:name=".newgui.first">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".RowListView">
+        <activity android:name=".activity.RowListView">
         </activity>
-        <activity android:name=".intro">
+        <activity android:name=".activity.Intro">
         </activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".activity.MainActivity">
         </activity>
-        <activity android:name=".CheckScoreHandle">
+        <activity android:name=".activity.CheckScoreHandle">
         </activity>
-        <activity android:name=".ScoreTable">
+        <activity android:name=".activity.ScoreTable">
+        </activity>
+        <!--<activity android:name=".newgui.first">-->
+    <!--</activity>-->
+        <activity android:name=".activity.Welcome">
         </activity>
     </application>
 

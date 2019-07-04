@@ -1,7 +1,8 @@
-package com.example.thuytran.listviewtutorial;
+package com.example.thuytran.listviewtutorial.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import com.example.thuytran.listviewtutorial.R;
 
 public class RowListView extends AppCompatActivity {
 

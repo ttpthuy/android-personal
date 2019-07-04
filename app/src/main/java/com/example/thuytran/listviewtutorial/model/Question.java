@@ -1,4 +1,4 @@
-package com.example.thuytran.listviewtutorial;
+package com.example.thuytran.listviewtutorial.model;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -51,5 +51,14 @@ public class Question extends Object {
 
     public void setQus(String qus) {
         this.qus = qus;
+    }
+
+    @Override
+    public String toString() {
+        return "Question{" +
+                "idQs='" + idQs + '\'' +
+                ", idGrQs='" + idGrQs + '\'' +
+                ", qus='" + qus + '\'' +
+                '}' + "\n";
     }
 }

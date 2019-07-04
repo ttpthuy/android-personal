@@ -1,4 +1,4 @@
-package com.example.thuytran.listviewtutorial;
+package com.example.thuytran.listviewtutorial.activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -9,8 +9,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import com.example.thuytran.listviewtutorial.R;
 
-public class welcome extends AppCompatActivity {
+public class Welcome extends AppCompatActivity {
     Button btnNext ;
     EditText phone;
     @Override
@@ -41,7 +42,7 @@ public class welcome extends AppCompatActivity {
                 Patterns.PHONE.matcher(s).matches();
     }
     private void goToIntro(){
-        Intent intent = new Intent(this, intro.class);
+        Intent intent = new Intent(this, Intro.class);
         startActivity(intent);
     }
 

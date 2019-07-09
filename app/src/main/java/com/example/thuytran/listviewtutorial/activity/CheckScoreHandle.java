@@ -5,10 +5,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ListView;
+import android.widget.*;
 import com.example.thuytran.listviewtutorial.R;
+import com.example.thuytran.listviewtutorial.adapter.SchoolScoreAdapter;
+import com.example.thuytran.listviewtutorial.adapter.ScoreAdapter;
 import com.example.thuytran.listviewtutorial.jsonconvert.DownloadJSON;
 import com.example.thuytran.listviewtutorial.jsonconvert.PostToServer;
 import com.google.gson.Gson;
@@ -22,24 +22,30 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 public class CheckScoreHandle extends AppCompatActivity {
-
-    ListView listViewScore;
+    TextView txtViewLevel;
+    ListView scoreLV10, scoreLV11, scoreLV12, scoreLVDH;
     Button btnSendScore;
     List<String> subjects;
     int idButton ;
+    private LinearLayout[] rowsOfLevel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_score);
+        Intent intent = getIntent();
+        idButton = intent.getIntExtra("level", 2131165277 );
         initElement();
-        for (int i = 0; i < idButton; i ++){
-            getData();
-        }
+        ArrayAdapter<String> scoreAdapter = new ArrayAdapter<String>(this, R.layout.score_row, R.id.textSubject, subjects);
+//        ScoreAdapter scoreAdapter = new ScoreAdapter(this, R.layout.score_row, subjects);
+//        SchoolScoreAdapter scoreAdapter = new SchoolScoreAdapter(this, subjects);
+        scoreLV10.setAdapter(scoreAdapter);
+        scoreLV11.setAdapter(scoreAdapter);
+        scoreLV12.setAdapter(scoreAdapter);
+        scoreLVDH.setAdapter(scoreAdapter);
         Log.i("checkScore", "checkScore");
         Log.i("listSub", subjects + "");
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.score_row, R.id.textSubject, subjects);
-        listViewScore.setAdapter(arrayAdapter);
+
     }
     public void getData(){
         subjects.add("Toán");
@@ -50,9 +56,15 @@ public class CheckScoreHandle extends AppCompatActivity {
 
     }
     public void initElement() {
-        Intent intent = getIntent();
-        idButton = intent.getIntExtra("level", 2131165277 );
-        listViewScore = (ListView) findViewById(R.id.scoreLV);
+        rowsOfLevel = new LinearLayout[4];
+        rowsOfLevel[0] = (LinearLayout) findViewById(R.id.firstLayout);
+        rowsOfLevel[1] = (LinearLayout) findViewById(R.id.secondLayout);
+        rowsOfLevel[2] = (LinearLayout) findViewById(R.id.thirdLayout);
+        rowsOfLevel[3] = (LinearLayout) findViewById(R.id.fourthLayout);
+        scoreLV10 = (ListView) findViewById(R.id.scoreLV10);
+        scoreLV11 = (ListView) findViewById(R.id.scoreLV11);
+        scoreLV12 = (ListView) findViewById(R.id.scoreLV12);
+        scoreLVDH = (ListView) findViewById(R.id.scoreLVDH);
         btnSendScore = (Button) findViewById(R.id.btnSendScore);
         subjects = new ArrayList<>();
         btnSendScore.setOnClickListener(new View.OnClickListener() {
@@ -67,6 +79,15 @@ public class CheckScoreHandle extends AppCompatActivity {
                 }
             }
         });
+        getData();
+        for (LinearLayout horizontalLinearLayout : rowsOfLevel) {
+            horizontalLinearLayout.setVisibility(View.GONE);
+        }
+
+        for (int row = 0; row < idButton; row++) {
+            rowsOfLevel[row].setVisibility(View.VISIBLE);
+
+        }
     }
     public void sendScore() throws ExecutionException, InterruptedException {
 //        DownloadJSON downloadJSON = new DownloadJSON("http://10.0.3.2:8080/demo");

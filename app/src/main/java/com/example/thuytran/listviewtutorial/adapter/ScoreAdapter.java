@@ -17,7 +17,7 @@ public class ScoreAdapter extends BaseAdapter {
     private Context context;
     private int layout;
     private List<String> subjectList;
-    ViewHold viewHolder;
+    ViewHold viewHold;
 
     public ScoreAdapter(Context context, int layout, List<String> subjectList) {
         this.context = context;
@@ -46,31 +46,25 @@ public class ScoreAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        convertView = inflater.inflate(layout, null);
-        TextView textScore = (TextView) convertView.findViewById(R.id.textSubject);
-        String sub = subjectList.get(position);
-        Log.i("thisSub",sub);
-        textScore.setText(sub);
+        if (convertView == null) {
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = inflater.inflate(layout, null);
+             viewHold = new ViewHold();
+            viewHold.textSubject = (TextView) convertView.findViewById(R.id.textSubject);
+            viewHold.score = (EditText) convertView.findViewById(R.id.scoreET);
 
-        Log.i("scoreAdater", "score adapter is here");
-//        if (convertView == null) {
-//            LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//            convertView =  layoutInflater.inflate(R.layout.score_row, null);
-//            viewHolder = new ViewHold();
-//            viewHolder.textScore = (TextView) convertView.findViewById(R.id.textSubject);
-////            viewHolder.score = (EditText) convertView.findViewById(R.id.score);
-//            convertView.setTag(viewHolder);
-//        }else{
-//            viewHolder = (ViewHold) convertView.getTag();
-//        }
-//
-//        viewHolder.textScore.setText(sub);
+            Log.i("scoreET", subjectList.get(position) + "  " + viewHold.score.getText());
+            convertView.setTag(viewHold);
+        }else{
+            Log.i("else", "ewwwwww");
+            viewHold = (ViewHold) convertView.getTag();
+        }
+        viewHold.textSubject.setText(subjectList.get(position));
         return convertView;
 
     }
     static class ViewHold {
-        TextView textScore;
+        TextView textSubject;
         EditText score;
 
     }

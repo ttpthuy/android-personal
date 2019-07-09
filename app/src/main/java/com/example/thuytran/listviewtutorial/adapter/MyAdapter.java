@@ -82,6 +82,7 @@ public class MyAdapter extends BaseAdapter {
                             answer.setPosition(position);
                             answer.setAns(3);
                             answer.setIdQs(questionList.get(position).getIdQs());
+                            data[position] = answer;
                             Log.i("checkedPosition", position + "");
                                 Log.i("checked", 3 + "");
                             break;

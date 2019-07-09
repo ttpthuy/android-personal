@@ -8,7 +8,12 @@ import android.widget.*;
 import com.example.thuytran.listviewtutorial.R;
 import com.example.thuytran.listviewtutorial.adapter.MyAdapter;
 import com.example.thuytran.listviewtutorial.jsonconvert.DownloadJSON;
+import com.example.thuytran.listviewtutorial.jsonconvert.PostToServer;
 import com.example.thuytran.listviewtutorial.model.Question;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -60,32 +65,41 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             Log.i("ans", Arrays.toString(myAdapter.getAns()));
+            Gson gsonBuilder = new GsonBuilder().create();
+            String s = gsonBuilder.toJson(myAdapter.getAns());
+            Log.i("jsonAns", s);
+            RequestBody requestBody = new MultipartBody.Builder()
+                    .addFormDataPart("s",s)
+                    .setType(MultipartBody.FORM)
+                    .build();
+            PostToServer postToServer = new PostToServer("http://10.0.3.2:8080/answer", requestBody);
+            postToServer.execute();
         }
     };
 
 
 
     private void getData() throws ExecutionException, InterruptedException, JSONException, IOException {
-        String url = "http://10.0.3.2:8080/hello";
-        DownloadJSON downloadJSON = new DownloadJSON(url);
-        Log.i("question2",  "hihih");
-        downloadJSON.execute();
-        String dataJSON = downloadJSON.get();
-        JSONArray jsonArrayDanhSachSanPham = new JSONArray(dataJSON);
-        for (int i = 0 ; i < jsonArrayDanhSachSanPham.length(); i++){
-            JSONObject object = jsonArrayDanhSachSanPham.getJSONObject(i);
-            questionList.add(new Question(object));
-        }
-        Log.i("questionListing", questionList + "");
-        Collections.shuffle(questionList);
+//        String url = "http://10.0.3.2:8080/hello";
+//        DownloadJSON downloadJSON = new DownloadJSON(url);
+//        Log.i("question2",  "hihih");
+//        downloadJSON.execute();
+//        String dataJSON = downloadJSON.get();
+//        JSONArray jsonArrayDanhSachSanPham = new JSONArray(dataJSON);
+//        for (int i = 0 ; i < jsonArrayDanhSachSanPham.length(); i++){
+//            JSONObject object = jsonArrayDanhSachSanPham.getJSONObject(i);
+//            questionList.add(new Question(object));
+//        }
+//        Log.i("questionListing", questionList + "");
+//        Collections.shuffle(questionList);
 
-//        questionList.add(new Question("01","01", "Like ME"));
-//        questionList.add(new Question("02","01", "Like Him"));
-//        questionList.add(new Question("03","01", "Like\ ME"));
-//        questionList.add(new Question("04","01", "Like ME"));
-//        questionList.add(new Question("05","01", "Like ME"));
-//        questionList.add(new Question("06","01", "Like ME"));
-//        questionList.add(new Question("07","01", "Like ME"));
+        questionList.add(new Question("01","01", "Like ME"));
+        questionList.add(new Question("02","01", "Like Him"));
+        questionList.add(new Question("03","01", "Like ME"));
+        questionList.add(new Question("04","01", "Like ME"));
+        questionList.add(new Question("05","01", "Like ME"));
+        questionList.add(new Question("06","01", "Like ME"));
+        questionList.add(new Question("07","01", "Like ME"));
 
     }
     public void onRadioButtonClicked(View view) {

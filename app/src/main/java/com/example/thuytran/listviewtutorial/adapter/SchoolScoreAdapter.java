@@ -2,6 +2,8 @@ package com.example.thuytran.listviewtutorial.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,22 +12,25 @@ import android.widget.*;
 import com.example.thuytran.listviewtutorial.R;
 import com.example.thuytran.listviewtutorial.model.Question;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class SchoolScoreAdapter extends BaseAdapter {
     private Context context;
-    private int layout;
-    private List<String> subjects ;
-    ViewHolder viewHolder;
-    public SchoolScoreAdapter(@NonNull Context context, @NonNull List<String> subjects) {
+    private String[] subjectList = {"Toán", "Lý","Hóa","Văn","Anh"};
+    ViewHolder viewHold;
+    LayoutInflater layoutInflater;
+    Map<String,String> score;
+    public SchoolScoreAdapter(@NonNull Context context) {
         this.context = context;
-        this.layout = R.layout.score_row;
-        this.subjects = subjects;
+        layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        score =  new HashMap<>();
     }
 
     @Override
     public int getCount() {
-        return 100;
+        return subjectList.length;
     }
 
     @Override
@@ -39,16 +44,37 @@ public class SchoolScoreAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
-        Log.i("schoolAdapter", "schooladaper");
-        if(convertView == null){
-            LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        }
-        TextView textSubject = (TextView) convertView.findViewById(R.id.textSubject);
-        EditText editTextScore = (EditText) convertView.findViewById(R.id.scoreET);
-        String subject = subjects.get(position);
-        textSubject.setText(subject);
-        return convertView;
+    public View getView( int position, View convertView, ViewGroup parent) {
+        convertView = layoutInflater.inflate(R.layout.score_row, null);
+        viewHold = new ViewHolder();
+            viewHold.textSubject = (TextView) convertView.findViewById(R.id.textSubject);
+            viewHold.editTextScore = (EditText) convertView.findViewById(R.id.scoreET);
+        Log.i("edittext", viewHold.editTextScore.getText().toString() + "");
+        viewHold.editTextScore.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                Log.i("edittext", viewHold.editTextScore.getText().toString() + "");
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        convertView.setTag(viewHold);
+        viewHold.textSubject.setText(subjectList[position]);
+
+
+        return  convertView;
+    }
+    public Map<String,String> getScore (){
+        Log.i("edittext", viewHold.editTextScore.getText().toString() + "");
+        return score;
     }
 }
  class ViewHolder{

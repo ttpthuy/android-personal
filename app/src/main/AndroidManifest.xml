@@ -25,6 +25,7 @@
         <activity android:name=".activity.MainActivity">
         </activity>
         <activity android:name=".activity.CheckScoreHandle">
+            android:windowSoftInputMode="adjustPan"
         </activity>
         <activity android:name=".activity.ScoreTable">
         </activity>

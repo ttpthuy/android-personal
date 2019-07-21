@@ -11,6 +11,8 @@ import com.example.thuytran.listviewtutorial.adapter.SchoolScoreAdapter;
 import com.example.thuytran.listviewtutorial.adapter.ScoreAdapter;
 import com.example.thuytran.listviewtutorial.jsonconvert.DownloadJSON;
 import com.example.thuytran.listviewtutorial.jsonconvert.PostToServer;
+import com.example.thuytran.listviewtutorial.model.SchoolScore;
+import com.example.thuytran.listviewtutorial.sqllite.ScoreSqlLiteHandler;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import okhttp3.MultipartBody;
@@ -28,6 +30,8 @@ public class CheckScoreHandle extends AppCompatActivity {
     List<String> subjects;
     int idButton ;
     private LinearLayout[] rowsOfLevel;
+    SchoolScoreAdapter scoreAdapter;
+    ScoreSqlLiteHandler scoreSqlLiteHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,15 +40,17 @@ public class CheckScoreHandle extends AppCompatActivity {
         Intent intent = getIntent();
         idButton = intent.getIntExtra("level", 2131165277 );
         initElement();
-        ArrayAdapter<String> scoreAdapter = new ArrayAdapter<String>(this, R.layout.score_row, R.id.textSubject, subjects);
-//        ScoreAdapter scoreAdapter = new ScoreAdapter(this, R.layout.score_row, subjects);
-//        SchoolScoreAdapter scoreAdapter = new SchoolScoreAdapter(this, subjects);
+        scoreSqlLiteHandler = new ScoreSqlLiteHandler(CheckScoreHandle.this);
+//        ArrayAdapter<String> scoreAdapter = new ArrayAdapter<String>(this, R.layout.score_row, R.id.textSubject, subjects);
+//        ScoreAdapter scoreAdapter = new ScoreAdapter(CheckScoreHandle.this, subjects);
+        scoreAdapter = new SchoolScoreAdapter(CheckScoreHandle.this);
         scoreLV10.setAdapter(scoreAdapter);
         scoreLV11.setAdapter(scoreAdapter);
         scoreLV12.setAdapter(scoreAdapter);
         scoreLVDH.setAdapter(scoreAdapter);
         Log.i("checkScore", "checkScore");
         Log.i("listSub", subjects + "");
+
 
     }
     public void getData(){
@@ -86,43 +92,49 @@ public class CheckScoreHandle extends AppCompatActivity {
 
         for (int row = 0; row < idButton; row++) {
             rowsOfLevel[row].setVisibility(View.VISIBLE);
-
         }
     }
     public void sendScore() throws ExecutionException, InterruptedException {
 //        DownloadJSON downloadJSON = new DownloadJSON("http://10.0.3.2:8080/demo");
-
+        Log.i("score", scoreAdapter.getScore() + "");
+      scoreSqlLiteHandler.addSchoolScore(new SchoolScore("lop10",1,1,1,1,1));
+      scoreSqlLiteHandler.addSchoolScore(new SchoolScore("lop11",2,2,2,2,2));
+      scoreSqlLiteHandler.addSchoolScore(new SchoolScore("lop12",3,3,3,3,3));
+      Log.i("allll", scoreSqlLiteHandler.getAllSchoolScore() + "");
 //        String dataJSON = downloadJSON.get();
 //        Log.i("demo1", dataJSON);
-        List<HashMap<String, HashMap<String, String>>> attrs = new ArrayList<>();
-        String dataJSON = "";
-        HashMap<String, String> lop10 = new HashMap<>();
-        lop10.put("toan", "10");
-        lop10.put("ly", "1");
-        lop10.put("hoa", "5");
-        lop10.put("van", "2");
-        lop10.put("anh", "1");
 
-        HashMap<String,HashMap<String, String>> json = new HashMap<>();
-        json.put("lop10", lop10);
-
-        attrs.add(json);
-
-        Gson gsonBuilder = new GsonBuilder().create();
-
-        String jsonFromJavaArrayList = gsonBuilder.toJson(json);
-
-        System.out.println(jsonFromJavaArrayList);
-        Log.i("tojson", jsonFromJavaArrayList);
-
-        RequestBody requestBody = new MultipartBody.Builder()
-                .addFormDataPart("s",jsonFromJavaArrayList)
-                .setType(MultipartBody.FORM)
-                .build();
-        PostToServer postToServer = new PostToServer("http://10.0.3.2:8080/demo", requestBody);
-        postToServer.execute();
-//        downloadJSON.execute();
+//        List<HashMap<String, HashMap<String, String>>> attrs = new ArrayList<>();
+//        String dataJSON = "";
+//        HashMap<String, String> lop10 = new HashMap<>();
+//        lop10.put("toan", "10");
+//        lop10.put("ly", "1");
+//        lop10.put("hoa", "5");
+//        lop10.put("van", "2");
+//        lop10.put("anh", "1");
+//
+//        HashMap<String,HashMap<String, String>> json = new HashMap<>();
+//        json.put("lop10", lop10);
+//
+//        attrs.add(json);
+//
+//        Gson gsonBuilder = new GsonBuilder().create();
+//
+//        String jsonFromJavaArrayList = gsonBuilder.toJson(json);
+//
+//        System.out.println(jsonFromJavaArrayList);
+//        Log.i("tojson", jsonFromJavaArrayList);
+//
+//        RequestBody requestBody = new MultipartBody.Builder()
+//                .addFormDataPart("s",jsonFromJavaArrayList)
+//                .setType(MultipartBody.FORM)
+//                .build();
+//        PostToServer postToServer = new PostToServer("http://10.0.3.2:8080/demo", requestBody);
+//        postToServer.execute();
+////        downloadJSON.execute();
         Intent intent = new Intent(this, MainActivity.class);
+
+        intent.putExtra("schoolscore", (ArrayList<SchoolScore>)scoreSqlLiteHandler.getAllSchoolScore());
         startActivity(intent);
 
 

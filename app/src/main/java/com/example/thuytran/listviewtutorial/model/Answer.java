@@ -1,6 +1,6 @@
 package com.example.thuytran.listviewtutorial.model;
 
-public class Answer {
+public class Answer extends Object {
     private String idQs;
     private int position;
     private int ans;

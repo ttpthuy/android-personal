@@ -12,17 +12,19 @@ import com.example.thuytran.listviewtutorial.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class ScoreAdapter extends BaseAdapter {
     private Context context;
-    private int layout;
     private List<String> subjectList;
     ViewHold viewHold;
+    LayoutInflater layoutInflater;
+    Map<String,String> score;
 
-    public ScoreAdapter(Context context, int layout, List<String> subjectList) {
+    public ScoreAdapter(Context context, List<String> subjectList) {
         this.context = context;
-        this.layout = layout;
         this.subjectList = subjectList;
+        layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     public ScoreAdapter() {
@@ -46,13 +48,12 @@ public class ScoreAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        Log.i("ScoreAdapter", "ScoreAdapter");
         if (convertView == null) {
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(layout, null);
+            convertView = layoutInflater.inflate(R.layout.score_row, null);
              viewHold = new ViewHold();
             viewHold.textSubject = (TextView) convertView.findViewById(R.id.textSubject);
             viewHold.score = (EditText) convertView.findViewById(R.id.scoreET);
-
             Log.i("scoreET", subjectList.get(position) + "  " + viewHold.score.getText());
             convertView.setTag(viewHold);
         }else{

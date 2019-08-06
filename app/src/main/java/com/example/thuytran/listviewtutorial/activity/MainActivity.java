@@ -129,39 +129,55 @@ public class MainActivity extends AppCompatActivity {
         questionList.add(new Question("05","01", "Like ME"));
         questionList.add(new Question("06","01", "Like ME"));
         questionList.add(new Question("07","01", "Like ME"));
+        questionList.add(new Question("08","01", "Like ME"));
+        questionList.add(new Question("09","01", "Like ME"));
+        questionList.add(new Question("10","01", "Like ME"));
+        questionList.add(new Question("11","01", "Like ME"));
+        questionList.add(new Question("12","01", "Like ME"));
+        questionList.add(new Question("13","01", "Like ME"));
+        questionList.add(new Question("14","01", "Like ME"));
+        questionList.add(new Question("15","01", "Like ME"));
+        questionList.add(new Question("16","01", "Like ME"));
+        questionList.add(new Question("17","01", "Like ME"));
+        questionList.add(new Question("18","01", "Like ME"));
+        questionList.add(new Question("19","01", "Like ME"));
+        questionList.add(new Question("20","01", "Like ME"));
+        questionList.add(new Question("21","01", "Like ME"));
+        questionList.add(new Question("22","01", "Like ME"));
+        questionList.add(new Question("23","01", "Like ME"));
 
     }
-    public void onRadioButtonClicked(View view) {
-        // Is the button now checked?
-        boolean checked = ((RadioButton) view).isChecked();
-        // Check which radio button was clicked
-       Map<Integer, Integer> map = new HashMap<>();
-       Log.i("parent", view.getParent().getParent().getParent() + "");
-        switch(view.getId()) {
-            case R.id.ans1:
-                if (checked)
-                    Log.i("checked", 1 + "");
-//                    map.put(listView.getCheckedItemPosition(), 1);
-                    break;
-            case R.id.ans2:
-                if (checked)
-                    Log.i("checked", 2 + "");
-                    break;
-            case R.id.ans3:
-                if (checked)
-                    Log.i("checked", 3 + "");
-                    break;
-            case R.id.ans4:
-                if (checked)
-                    Log.i("checked", 4 + "");
-                    break;
-            case R.id.ans5:
-                if (checked)
-                    Log.i("checked", 5 + "");
-                    break;
-        }
-
-    }
+//    public void onRadioButtonClicked(View view) {
+//        // Is the button now checked?
+//        boolean checked = ((RadioButton) view).isChecked();
+//        // Check which radio button was clicked
+//       Map<Integer, Integer> map = new HashMap<>();
+//       Log.i("parent", view.getParent().getParent().getParent() + "");
+//        switch(view.getId()) {
+//            case R.id.ans1:
+//                if (checked)
+//                    Log.i("checked", 1 + "");
+////                    map.put(listView.getCheckedItemPosition(), 1);
+//                    break;
+//            case R.id.ans2:
+//                if (checked)
+//                    Log.i("checked", 2 + "");
+//                    break;
+//            case R.id.ans3:
+//                if (checked)
+//                    Log.i("checked", 3 + "");
+//                    break;
+//            case R.id.ans4:
+//                if (checked)
+//                    Log.i("checked", 4 + "");
+//                    break;
+//            case R.id.ans5:
+//                if (checked)
+//                    Log.i("checked", 5 + "");
+//                    break;
+//        }
+//
+//    }
 
     private AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
 

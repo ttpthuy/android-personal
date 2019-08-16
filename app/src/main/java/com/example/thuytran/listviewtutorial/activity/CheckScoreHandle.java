@@ -3,23 +3,18 @@ package com.example.thuytran.listviewtutorial.activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.*;
 import com.example.thuytran.listviewtutorial.R;
-import com.example.thuytran.listviewtutorial.adapter.SchoolScoreAdapter;
-import com.example.thuytran.listviewtutorial.adapter.ScoreAdapter;
+import com.example.thuytran.listviewtutorial.adapter.*;
 import com.example.thuytran.listviewtutorial.jsonconvert.DownloadJSON;
-import com.example.thuytran.listviewtutorial.jsonconvert.PostToServer;
+import com.example.thuytran.listviewtutorial.model.EditModel;
 import com.example.thuytran.listviewtutorial.model.SchoolScore;
 import com.example.thuytran.listviewtutorial.sqllite.ScoreSqlLiteHandler;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -30,9 +25,13 @@ public class CheckScoreHandle extends AppCompatActivity {
     List<String> subjects;
     int idButton ;
     private LinearLayout[] rowsOfLevel;
-    SchoolScoreAdapter scoreAdapter;
+    Level10ScoreAdapter scoreAdapter;
+    Level11ScoreAdapter scoreAdapter2;
+    Level12ScoreAdapter scoreAdapter3;
+    LevelDaiHocScoreAdapter scoreAdapter4;
     ScoreSqlLiteHandler scoreSqlLiteHandler;
-
+    public ArrayList<EditModel> editModelArrayList, editModelArrayList2, editModelArrayList3, editModelArrayList4;
+    private RecyclerView lop10View, lop11View, lop12View, daihocView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,18 +39,21 @@ public class CheckScoreHandle extends AppCompatActivity {
         Intent intent = getIntent();
         idButton = intent.getIntExtra("level", 2131165277 );
         initElement();
-        scoreSqlLiteHandler = new ScoreSqlLiteHandler(CheckScoreHandle.this);
-//        ArrayAdapter<String> scoreAdapter = new ArrayAdapter<String>(this, R.layout.score_row, R.id.textSubject, subjects);
-//        ScoreAdapter scoreAdapter = new ScoreAdapter(CheckScoreHandle.this, subjects);
-        scoreAdapter = new SchoolScoreAdapter(CheckScoreHandle.this);
-        scoreLV10.setAdapter(scoreAdapter);
-        scoreLV11.setAdapter(scoreAdapter);
-        scoreLV12.setAdapter(scoreAdapter);
-        scoreLVDH.setAdapter(scoreAdapter);
-        Log.i("checkScore", "checkScore");
-        Log.i("listSub", subjects + "");
 
+//        scoreSqlLiteHandler = new ScoreSqlLiteHandler(CheckScoreHandle.this);
 
+    }
+    private ArrayList<EditModel> populateList(){
+
+        ArrayList<EditModel> list = new ArrayList<>();
+
+        for(int i = 0; i < 5; i++){
+            EditModel editModel = new EditModel();
+            editModel.setEditTextValue(String.valueOf(i));
+            list.add(editModel);
+        }
+
+        return list;
     }
     public void getData(){
         subjects.add("Toán");
@@ -67,10 +69,6 @@ public class CheckScoreHandle extends AppCompatActivity {
         rowsOfLevel[1] = (LinearLayout) findViewById(R.id.secondLayout);
         rowsOfLevel[2] = (LinearLayout) findViewById(R.id.thirdLayout);
         rowsOfLevel[3] = (LinearLayout) findViewById(R.id.fourthLayout);
-        scoreLV10 = (ListView) findViewById(R.id.scoreLV10);
-        scoreLV11 = (ListView) findViewById(R.id.scoreLV11);
-        scoreLV12 = (ListView) findViewById(R.id.scoreLV12);
-        scoreLVDH = (ListView) findViewById(R.id.scoreLVDH);
         btnSendScore = (Button) findViewById(R.id.btnSendScore);
         subjects = new ArrayList<>();
         btnSendScore.setOnClickListener(new View.OnClickListener() {
@@ -86,6 +84,8 @@ public class CheckScoreHandle extends AppCompatActivity {
             }
         });
         getData();
+
+        //set number of layout depend on user choice
         for (LinearLayout horizontalLinearLayout : rowsOfLevel) {
             horizontalLinearLayout.setVisibility(View.GONE);
         }
@@ -93,14 +93,64 @@ public class CheckScoreHandle extends AppCompatActivity {
         for (int row = 0; row < idButton; row++) {
             rowsOfLevel[row].setVisibility(View.VISIBLE);
         }
+
+        //set adapter for listview
+        scoreLV10 = (ListView) findViewById(R.id.scoreLV10);
+        scoreLV11 = (ListView) findViewById(R.id.scoreLV11);
+        scoreLV12 = (ListView) findViewById(R.id.scoreLV12);
+        scoreLVDH = (ListView) findViewById(R.id.scoreLVDH);
+        editModelArrayList = populateList();
+        editModelArrayList2 = populateList();
+        editModelArrayList3 = populateList();
+        editModelArrayList4 = populateList();
+        scoreAdapter = new Level10ScoreAdapter(CheckScoreHandle.this, editModelArrayList);
+        scoreAdapter2 = new Level11ScoreAdapter(CheckScoreHandle.this, editModelArrayList2);
+        scoreAdapter3 = new Level12ScoreAdapter(CheckScoreHandle.this, editModelArrayList3);
+        scoreAdapter4 = new LevelDaiHocScoreAdapter(CheckScoreHandle.this, editModelArrayList3);
+        configAdapter();
+
     }
+
+    private void configAdapter() {
+        scoreLV10.setAdapter(scoreAdapter);
+        scoreLV11.setAdapter(scoreAdapter2);
+        scoreLV12.setAdapter(scoreAdapter3);
+        scoreLVDH.setAdapter(scoreAdapter);
+
+    }
+
     public void sendScore() throws ExecutionException, InterruptedException {
+        SchoolScore lop10, lop11, lop12, lop13;
+        Intent intent = new Intent(this, MainActivity.class);
+        ArrayList<SchoolScore> schoolScores = new ArrayList<>();
+        if( Level10ScoreAdapter.editModelArrayList.size() > 1){
+             lop10 = new SchoolScore("lop10", Level10ScoreAdapter.editModelArrayList );
+             schoolScores.add(lop10);
+            Log.i("lop10", lop10 + "");
+        }
+        if(idButton > 1 && Level11ScoreAdapter.editModelArrayList.size() > 1){
+            lop11 = new SchoolScore("lop11", Level11ScoreAdapter.editModelArrayList );
+            schoolScores.add(lop11);
+            Log.i("lop11", lop11 + "");
+        }
+        if(idButton > 2 && Level12ScoreAdapter.editModelArrayList.size() > 1){
+            lop12 = new SchoolScore("lop12", Level12ScoreAdapter.editModelArrayList );
+            schoolScores.add(lop12);
+            Log.i("lop12", lop12 + "");
+        }
+        if( idButton > 3 && LevelDaiHocScoreAdapter.editModelArrayList.size() > 1){
+            lop13 = new SchoolScore("daihoc", LevelDaiHocScoreAdapter.editModelArrayList );
+            schoolScores.add(lop13);
+            Log.i("lop13", lop13 + "");
+        }
+        //SQLLite saving
+//      scoreSqlLiteHandler.addSchoolScore(new SchoolScore("lop10",1,1,1,1,1));
+//      scoreSqlLiteHandler.addSchoolScore(new SchoolScore("lop11",2,2,2,2,2));
+//      scoreSqlLiteHandler.addSchoolScore(new SchoolScore("lop12",3,3,3,3,3));
+//      Log.i("allll", scoreSqlLiteHandler.getAllSchoolScore() + "");
+
+        //Send to server
 //        DownloadJSON downloadJSON = new DownloadJSON("http://10.0.3.2:8080/demo");
-        Log.i("score", scoreAdapter.getScore() + "");
-      scoreSqlLiteHandler.addSchoolScore(new SchoolScore("lop10",1,1,1,1,1));
-      scoreSqlLiteHandler.addSchoolScore(new SchoolScore("lop11",2,2,2,2,2));
-      scoreSqlLiteHandler.addSchoolScore(new SchoolScore("lop12",3,3,3,3,3));
-      Log.i("allll", scoreSqlLiteHandler.getAllSchoolScore() + "");
 //        String dataJSON = downloadJSON.get();
 //        Log.i("demo1", dataJSON);
 
@@ -132,11 +182,9 @@ public class CheckScoreHandle extends AppCompatActivity {
 //        PostToServer postToServer = new PostToServer("http://10.0.3.2:8080/demo", requestBody);
 //        postToServer.execute();
 ////        downloadJSON.execute();
-        Intent intent = new Intent(this, MainActivity.class);
 
-        intent.putExtra("schoolscore", (ArrayList<SchoolScore>)scoreSqlLiteHandler.getAllSchoolScore());
+        intent.putExtra("schoolscore", schoolScores);
         startActivity(intent);
-
 
     }
 }

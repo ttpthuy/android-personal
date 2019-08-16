@@ -14,6 +14,12 @@ public class Answer extends Object {
     public Answer() {
     }
 
+    public Answer(QuestionAnswer questionAnswer){
+        this.idQs = questionAnswer.getQuestion();
+        this.position = questionAnswer.getSeleectedAnswerPosition();
+        this.ans = questionAnswer.getAnswer();
+    }
+
     public String getIdQs() {
         return idQs;
     }

@@ -1,6 +1,7 @@
 package com.example.thuytran.listviewtutorial.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class SchoolScore implements Serializable {
     private String idLevel;
@@ -17,6 +18,16 @@ public class SchoolScore implements Serializable {
         this.hoa = hoa;
         this.van = van;
         this.anh = anh;
+    }
+    public SchoolScore(String isLevel, List<EditModel> editModels){
+        this.idLevel = isLevel;
+        this.toan = Double.parseDouble(editModels.get(0).getEditTextValue());
+        this.ly = Double.parseDouble(editModels.get(1).getEditTextValue());
+        this.hoa = Double.parseDouble(editModels.get(2).getEditTextValue());
+        this.van = Double.parseDouble(editModels.get(3).getEditTextValue());
+        this.anh = Double.parseDouble(editModels.get(4).getEditTextValue());
+
+
     }
 
     public SchoolScore() {

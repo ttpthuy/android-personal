@@ -26,7 +26,6 @@ public class Level10ScoreAdapter extends BaseAdapter {
     public static ArrayList<EditModel> editModelArrayList;
     List<EditModel> editModels = new ArrayList<>();
     ArrayList<String> subjects ;
-    private String [] arr = {"Toan", "Ly","Hoa","Van","Anh", "Sinh", "Sử", "Địa"};
     public Level10ScoreAdapter(Context context, ArrayList<EditModel> editModelArrayList, ArrayList<String> subjects) {
         this.context = context;
         this.editModelArrayList = editModelArrayList;

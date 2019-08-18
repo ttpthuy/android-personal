@@ -25,16 +25,35 @@ public class SchoolScore implements Serializable {
         this.su = su;
         this.dia = dia;
     }
-    public SchoolScore(String isLevel, List<EditModel> editModels){
+    public SchoolScore(String isLevel, List<EditModel> editModels, String group){
         this.idLevel = isLevel;
-        this.toan = Double.parseDouble(editModels.get(0).getEditTextValue());
-        this.ly = Double.parseDouble(editModels.get(1).getEditTextValue());
-        this.hoa = Double.parseDouble(editModels.get(2).getEditTextValue());
-        this.van = Double.parseDouble(editModels.get(3).getEditTextValue());
-        this.anh = Double.parseDouble(editModels.get(4).getEditTextValue());
-        this.sinh = Double.parseDouble(editModels.get(5).getEditTextValue());
-        this.su = Double.parseDouble(editModels.get(6).getEditTextValue());
-        this.dia = Double.parseDouble(editModels.get(7).getEditTextValue());
+        switch (group.toLowerCase()){
+            case "tn":
+                this.toan = Double.parseDouble(editModels.get(0).getEditTextValue());
+                this.ly = Double.parseDouble(editModels.get(1).getEditTextValue());
+                this.hoa = Double.parseDouble(editModels.get(2).getEditTextValue());
+                this.sinh = Double.parseDouble(editModels.get(3).getEditTextValue());
+                this.anh = Double.parseDouble(editModels.get(4).getEditTextValue());
+                break;
+            case "xh":
+                this.toan = Double.parseDouble(editModels.get(0).getEditTextValue());
+                this.van = Double.parseDouble(editModels.get(1).getEditTextValue());
+                this.anh = Double.parseDouble(editModels.get(2).getEditTextValue());
+                this.su = Double.parseDouble(editModels.get(3).getEditTextValue());
+                this.dia = Double.parseDouble(editModels.get(4).getEditTextValue());
+                break;
+                default:
+                    this.toan = Double.parseDouble(editModels.get(0).getEditTextValue());
+                    this.ly = Double.parseDouble(editModels.get(1).getEditTextValue());
+                    this.hoa = Double.parseDouble(editModels.get(2).getEditTextValue());
+                    this.van = Double.parseDouble(editModels.get(3).getEditTextValue());
+                    this.anh = Double.parseDouble(editModels.get(4).getEditTextValue());
+                    this.sinh = Double.parseDouble(editModels.get(5).getEditTextValue());
+                    this.su = Double.parseDouble(editModels.get(6).getEditTextValue());
+                    this.dia = Double.parseDouble(editModels.get(7).getEditTextValue());
+                    break;
+        }
+
 
     }
 

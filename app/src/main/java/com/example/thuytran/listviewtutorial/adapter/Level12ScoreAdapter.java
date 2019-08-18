@@ -25,10 +25,11 @@ public class Level12ScoreAdapter extends BaseAdapter {
     private Context context;
     public static ArrayList<EditModel> editModelArrayList;
     List<EditModel> editModels = new ArrayList<>();
-    private String [] arr = {"Toan", "Ly","Hoa","Van","Anh", "Sinh", "Sử", "Địa"};
-    public Level12ScoreAdapter(Context context, ArrayList<EditModel> editModelArrayList) {
+    ArrayList<String> subjects ;
+    public Level12ScoreAdapter(Context context, ArrayList<EditModel> editModelArrayList, ArrayList<String> subjects) {
         this.context = context;
         this.editModelArrayList = editModelArrayList;
+        this.subjects = subjects;
     }
 
     @Override
@@ -74,7 +75,7 @@ public class Level12ScoreAdapter extends BaseAdapter {
             holder = (ViewHolder)convertView.getTag();
         }
 
-        holder.textView.setText(arr[position]);
+        holder.textView.setText(subjects.get(position));
 
         holder.editText.setText("");
 

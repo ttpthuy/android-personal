@@ -6,54 +6,54 @@ import org.json.JSONObject;
 import java.io.Serializable;
 
 public class Job implements Serializable {
-    private String idJob;
-    private String jobName;
-    private String jobGroup;
+    private String id;
+    private String name;
+    private String group;
 
-    public Job(String idJob, String jobName, String jobGroup) {
-        this.idJob = idJob;
-        this.jobName = jobName;
-        this.jobGroup = jobGroup;
+    public Job(String id, String name, String jobGroup) {
+        this.id = id;
+        this.name = name;
+        this.group = jobGroup;
     }
 
     public Job() {
     }
     public Job(JSONObject jsonObject) throws JSONException {
-        this.idJob = jsonObject.getString("id");
-        this.jobName = jsonObject.getString("name");
-        this.jobGroup = jsonObject.getString("group");
+        this.id = jsonObject.getString("id");
+        this.name = jsonObject.getString("name");
+        this.group = jsonObject.getString("group");
     }
 
-    public String getIdJob() {
-        return idJob;
+    public String getId() {
+        return id;
     }
 
-    public void setIdJob(String idJob) {
-        this.idJob = idJob;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getJobName() {
-        return jobName;
+    public String getName() {
+        return name;
     }
 
-    public void setJobName(String jobName) {
-        this.jobName = jobName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getJobGroup() {
-        return jobGroup;
+    public String getGroup() {
+        return group;
     }
 
-    public void setJobGroup(String jobGroup) {
-        this.jobGroup = jobGroup;
+    public void setGroup(String group) {
+        this.group = group;
     }
 
     @Override
     public String toString() {
         return "Job{" +
-                "idJob='" + idJob + '\'' +
-                ", jobName='" + jobName + '\'' +
-                ", jobGroup='" + jobGroup + '\'' +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", group='" + group + '\'' +
                 '}' + "\n";
     }
 }

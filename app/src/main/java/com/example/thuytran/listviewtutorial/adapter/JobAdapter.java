@@ -1,13 +1,14 @@
 package com.example.thuytran.listviewtutorial.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 import com.example.thuytran.listviewtutorial.R;
-import com.example.thuytran.listviewtutorial.activity.Jobs;
+import com.example.thuytran.listviewtutorial.activity.ScoreTable;
 import com.example.thuytran.listviewtutorial.model.Job;
 
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ public class JobAdapter extends BaseAdapter implements Filterable {
     private ArrayList<Job> mOriginalValues; // Original Values
     private ArrayList<Job> mDisplayedValues;    // Values to be displayed
     LayoutInflater inflater;
+    Context context;
 
     private class JobViewHolder {
         LinearLayout llContainer;
@@ -25,6 +27,7 @@ public class JobAdapter extends BaseAdapter implements Filterable {
     public JobAdapter(Context context, ArrayList<Job> mJobArrayList) {
         this.mOriginalValues = mJobArrayList;
         this.mDisplayedValues = mJobArrayList;
+        this.context = context;
         inflater = LayoutInflater.from(context);
     }
 
@@ -46,22 +49,27 @@ public class JobAdapter extends BaseAdapter implements Filterable {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         JobViewHolder holder = null;
-        Log.i("arrayjob", mDisplayedValues.get(position).getJobName());
+        Log.i("arrayjob", mDisplayedValues.get(position).getName());
         if (convertView == null) {
 
             holder = new JobViewHolder();
             convertView = inflater.inflate(R.layout.job_item, null);
             holder.llContainer = (LinearLayout) convertView.findViewById(R.id.llContainer);
-            holder.jobName = (TextView) convertView.findViewById(R.id.jobName);
+            holder.jobName = (TextView) convertView.findViewById(R.id.name);
             convertView.setTag(holder);
         } else {
             holder = (JobViewHolder) convertView.getTag();
         }
-        holder.jobName.setText(mDisplayedValues.get(position).getJobName());
+        holder.jobName.setText(mDisplayedValues.get(position).getName());
         holder.llContainer.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                Log.i("job", mDisplayedValues.get(position).getJobName());
+                Log.i("job", mDisplayedValues.get(position).getName());
+                Intent intent = new Intent(context, ScoreTable.class);
+                Job job = new Job();
+                job = mDisplayedValues.get(position);
+                intent.putExtra("jobSelected", job);
+                context.startActivity(intent);
             }
         });
 
@@ -96,9 +104,9 @@ public class JobAdapter extends BaseAdapter implements Filterable {
                 } else {
                     constraint = constraint.toString().toLowerCase();
                     for (int i = 0; i < mOriginalValues.size(); i++) {
-                        String data = mOriginalValues.get(i).getJobName();
+                        String data = mOriginalValues.get(i).getName();
                         if (data.toLowerCase().startsWith(constraint.toString())) {
-                            FilteredArrList.add(new Job(mOriginalValues.get(i).getIdJob(),mOriginalValues.get(i).getJobName(), mOriginalValues.get(i).getJobGroup()));
+                            FilteredArrList.add(new Job(mOriginalValues.get(i).getId(),mOriginalValues.get(i).getName(), mOriginalValues.get(i).getGroup()));
                         }
                     }
                     // set the Filtered result to return

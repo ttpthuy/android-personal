@@ -37,25 +37,26 @@ public class MainActivity extends AppCompatActivity implements OnOptionSelected 
     private List<QuestionAnswer> questionModels;
     private RecylerAdapter recylerAdapter;
     int[] answer ;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initElement();
 
-        try {
-            try {
-                getData();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            try {
+//                getData();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        } catch (ExecutionException e) {
+//            e.printStackTrace();
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
         //get school score
 
         answerSqlLiteHandle = new AnswerSqlLiteHandle(MainActivity.this);
@@ -79,7 +80,8 @@ public class MainActivity extends AppCompatActivity implements OnOptionSelected 
         //get School Score
         Intent intent = getIntent();
         schoolScores = (ArrayList<SchoolScore>) intent.getSerializableExtra("schoolscore");
-
+        //get John Holland Question
+        questionModels = (ArrayList<QuestionAnswer>) intent.getSerializableExtra("JHListQuestion");
         //config for view adapter,...
         congifForView();
     }
@@ -121,8 +123,16 @@ public class MainActivity extends AppCompatActivity implements OnOptionSelected 
                     .addFormDataPart("s",s)
                     .setType(MultipartBody.FORM)
                     .build();
-            PostToServer postToServer = new PostToServer("http://10.0.3.2:8080/answer", requestBody);
+            PostToServer postToServer = new PostToServer("http://10.0.3.2:8080/Grquestion1_step2", requestBody);
             postToServer.execute();
+            try {
+                String top3 = postToServer.get();
+                Log.i("top3", top3);
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
 
     };
@@ -130,27 +140,29 @@ public class MainActivity extends AppCompatActivity implements OnOptionSelected 
 
 
     private void getData() throws ExecutionException, InterruptedException, JSONException, IOException {
-//        String url = "http://10.0.3.2:8080/hello";
-//        DownloadJSON downloadJSON = new DownloadJSON(url);
-//        Log.i("question2",  "hihih");
-//        downloadJSON.execute();
-//        String dataJSON = downloadJSON.get();
-//        JSONArray jsonArrayDanhSachSanPham = new JSONArray(dataJSON);
-//        for (int i = 0 ; i < jsonArrayDanhSachSanPham.length(); i++){
-//            JSONObject object = jsonArrayDanhSachSanPham.getJSONObject(i);
+        questionModels=new ArrayList<QuestionAnswer>();
+        answer = new int[questionModels.size()];
+        String url = "http://10.0.3.2:8080/hello";
+        DownloadJSON downloadJSON = new DownloadJSON(url);
+        Log.i("question2",  "hihih");
+        downloadJSON.execute();
+        String dataJSON = downloadJSON.get();
+        JSONArray jsonArrayDanhSachSanPham = new JSONArray(dataJSON);
+        for (int i = 0 ; i < jsonArrayDanhSachSanPham.length(); i++){
+            JSONObject object = jsonArrayDanhSachSanPham.getJSONObject(i);
 //            questionList.add(new Question(object));
-//        }
-//        Log.i("questionListing", questionList + "");
+            questionModels.add(new QuestionAnswer(new Question(object)));
+        }
 //        Collections.shuffle(questionList);
 
-        questionModels=new ArrayList<QuestionAnswer>();
-        for (int i = 0; i < 20; i++) {
-            QuestionAnswer questionModel = new QuestionAnswer();
-            questionModel.setQuestion("Question " + (i + 1));
-            questionModels.add(questionModel);
-        }
 
-        answer = new int[questionModels.size()];
+//        for (int i = 0; i < 20; i++) {
+//            QuestionAnswer questionModel = new QuestionAnswer();
+//            questionModel.setQuestion("Question " + (i + 1));
+//            questionModels.add(questionModel);
+//        }
+
+
 
     }
 
@@ -164,32 +176,32 @@ public class MainActivity extends AppCompatActivity implements OnOptionSelected 
                 questionModels.get(position).setOp1Sel(true);
                 questionModels.get(position).setAnswer(1);
                 Log.i("qus", position + "   " + 1);
-                answer[position] = 1;
+//                answer[position] = 1;
                 break;
 
             case 2:
                 questionModels.get(position).setOp2Sel(true);
                 questionModels.get(position).setAnswer(2);
                 Log.i("qus", position + "   " + 2);
-                answer[position] = 2;
+//                answer[position] = 2;
                 break;
             case 3:
                 questionModels.get(position).setOp3Sel(true);
                 questionModels.get(position).setAnswer(3);
                 Log.i("qus", position + "   " + 3);
-                answer[position] = 3;
+//                answer[position] = 3;
                 break;
             case 4:
                 questionModels.get(position).setOp4Sel(true);
                 questionModels.get(position).setAnswer(4);
                 Log.i("qus", position + "   " + 4);
-                answer[position] = 4;
+//                answer[position] = 4;
                 break;
             case 5:
                 questionModels.get(position).setOp5Sel(true);
                 questionModels.get(position).setAnswer(5);
                 Log.i("qus", position + "   " + 5);
-                answer[position] = 5;
+//                answer[position] = 5;
                 break;
         }
         recylerAdapter.setQuestionModels(questionModels);

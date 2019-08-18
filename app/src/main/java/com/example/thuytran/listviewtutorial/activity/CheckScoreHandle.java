@@ -10,9 +10,19 @@ import android.widget.*;
 import com.example.thuytran.listviewtutorial.R;
 import com.example.thuytran.listviewtutorial.adapter.*;
 import com.example.thuytran.listviewtutorial.jsonconvert.DownloadJSON;
+import com.example.thuytran.listviewtutorial.jsonconvert.PostToServer;
 import com.example.thuytran.listviewtutorial.model.EditModel;
+import com.example.thuytran.listviewtutorial.model.Question;
+import com.example.thuytran.listviewtutorial.model.QuestionAnswer;
 import com.example.thuytran.listviewtutorial.model.SchoolScore;
 import com.example.thuytran.listviewtutorial.sqllite.ScoreSqlLiteHandler;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,14 +32,16 @@ public class CheckScoreHandle extends AppCompatActivity {
     TextView txtViewLevel;
     ListView scoreLV10, scoreLV11, scoreLV12, scoreLVDH;
     Button btnSendScore;
-    List<String> subjects;
+    ArrayList<String> subjects;
     int idButton ;
+    byte sex;
     private LinearLayout[] rowsOfLevel;
     Level10ScoreAdapter scoreAdapter;
     Level11ScoreAdapter scoreAdapter2;
     Level12ScoreAdapter scoreAdapter3;
     LevelDaiHocScoreAdapter scoreAdapter4;
     ScoreSqlLiteHandler scoreSqlLiteHandler;
+    private ArrayList<QuestionAnswer> questionModels;
     public ArrayList<EditModel> editModelArrayList, editModelArrayList2, editModelArrayList3, editModelArrayList4;
     private RecyclerView lop10View, lop11View, lop12View, daihocView;
     @Override
@@ -38,6 +50,8 @@ public class CheckScoreHandle extends AppCompatActivity {
         setContentView(R.layout.activity_check_score);
         Intent intent = getIntent();
         idButton = intent.getIntExtra("level", 2131165277 );
+        sex = intent.getByteExtra("sex", Byte.MIN_VALUE);
+        Log.i("sex", sex + "");
         initElement();
 
 //        scoreSqlLiteHandler = new ScoreSqlLiteHandler(CheckScoreHandle.this);
@@ -47,7 +61,7 @@ public class CheckScoreHandle extends AppCompatActivity {
 
         ArrayList<EditModel> list = new ArrayList<>();
 
-        for(int i = 0; i < 5; i++){
+        for(int i = 0; i < 7; i++){
             EditModel editModel = new EditModel();
             editModel.setEditTextValue(String.valueOf(i));
             list.add(editModel);
@@ -61,6 +75,9 @@ public class CheckScoreHandle extends AppCompatActivity {
         subjects.add("Hóa");
         subjects.add("Văn");
         subjects.add("Anh");
+        subjects.add("Sinh");
+        subjects.add("Sử");
+        subjects.add("Địa");
 
     }
     public void initElement() {
@@ -79,6 +96,8 @@ public class CheckScoreHandle extends AppCompatActivity {
                 } catch (ExecutionException e) {
                     e.printStackTrace();
                 } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
@@ -103,7 +122,7 @@ public class CheckScoreHandle extends AppCompatActivity {
         editModelArrayList2 = populateList();
         editModelArrayList3 = populateList();
         editModelArrayList4 = populateList();
-        scoreAdapter = new Level10ScoreAdapter(CheckScoreHandle.this, editModelArrayList);
+        scoreAdapter = new Level10ScoreAdapter(CheckScoreHandle.this, editModelArrayList, subjects);
         scoreAdapter2 = new Level11ScoreAdapter(CheckScoreHandle.this, editModelArrayList2);
         scoreAdapter3 = new Level12ScoreAdapter(CheckScoreHandle.this, editModelArrayList3);
         scoreAdapter4 = new LevelDaiHocScoreAdapter(CheckScoreHandle.this, editModelArrayList3);
@@ -119,10 +138,11 @@ public class CheckScoreHandle extends AppCompatActivity {
 
     }
 
-    public void sendScore() throws ExecutionException, InterruptedException {
+    public void sendScore() throws ExecutionException, InterruptedException, JSONException {
         SchoolScore lop10, lop11, lop12, lop13;
         Intent intent = new Intent(this, MainActivity.class);
         ArrayList<SchoolScore> schoolScores = new ArrayList<>();
+        questionModels = new ArrayList<>();
         if( Level10ScoreAdapter.editModelArrayList.size() > 1){
              lop10 = new SchoolScore("lop10", Level10ScoreAdapter.editModelArrayList );
              schoolScores.add(lop10);
@@ -150,40 +170,32 @@ public class CheckScoreHandle extends AppCompatActivity {
 //      Log.i("allll", scoreSqlLiteHandler.getAllSchoolScore() + "");
 
         //Send to server
-//        DownloadJSON downloadJSON = new DownloadJSON("http://10.0.3.2:8080/demo");
-//        String dataJSON = downloadJSON.get();
-//        Log.i("demo1", dataJSON);
 
-//        List<HashMap<String, HashMap<String, String>>> attrs = new ArrayList<>();
-//        String dataJSON = "";
-//        HashMap<String, String> lop10 = new HashMap<>();
-//        lop10.put("toan", "10");
-//        lop10.put("ly", "1");
-//        lop10.put("hoa", "5");
-//        lop10.put("van", "2");
-//        lop10.put("anh", "1");
-//
-//        HashMap<String,HashMap<String, String>> json = new HashMap<>();
-//        json.put("lop10", lop10);
-//
-//        attrs.add(json);
-//
-//        Gson gsonBuilder = new GsonBuilder().create();
-//
-//        String jsonFromJavaArrayList = gsonBuilder.toJson(json);
-//
-//        System.out.println(jsonFromJavaArrayList);
-//        Log.i("tojson", jsonFromJavaArrayList);
-//
-//        RequestBody requestBody = new MultipartBody.Builder()
-//                .addFormDataPart("s",jsonFromJavaArrayList)
-//                .setType(MultipartBody.FORM)
-//                .build();
-//        PostToServer postToServer = new PostToServer("http://10.0.3.2:8080/demo", requestBody);
-//        postToServer.execute();
-////        downloadJSON.execute();
+        JSONObject jsonObject = new JSONObject();
+        Gson gsonBuilder = new GsonBuilder().create();
+        jsonObject.put("score", schoolScores );
+        jsonObject.put("sex", this.sex);
+        Log.i("sexeee", this.sex + "");
+        String s = gsonBuilder.toJson(jsonObject);
 
+        RequestBody requestBody = new MultipartBody.Builder()
+                .addFormDataPart("s", s)
+                .setType(MultipartBody.FORM)
+                .build();
+        PostToServer postToServer = new PostToServer("http://10.0.3.2:8080/Grquestion1_step1", requestBody);
+
+        postToServer.execute();
+        String dataJSON = postToServer.get();
+        Log.i("miningques", dataJSON);
+
+        JSONArray JHListQuestion = new JSONArray(dataJSON);
+        for (int i = 0 ; i < JHListQuestion.length(); i++){
+            JSONObject object = JHListQuestion.getJSONObject(i);
+//            questionList.add(new Question(object));
+            questionModels.add(new QuestionAnswer(new Question(object)));
+        }
         intent.putExtra("schoolscore", schoolScores);
+        intent.putExtra("JHListQuestion", questionModels);
         startActivity(intent);
 
     }

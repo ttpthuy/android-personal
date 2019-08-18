@@ -3,10 +3,11 @@ package com.example.thuytran.listviewtutorial.model;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class QuestionAnswer {
+public class QuestionAnswer implements Serializable {
     private String question;
     private int seleectedAnswerPosition;
     private boolean op1Sel,op2Sel,op3Sel, op4Sel, op5Sel;
@@ -19,6 +20,11 @@ public class QuestionAnswer {
         this.idGrQs = idGrQs;
         this.qus = qus;
         this.answer = 0;
+    }
+    public QuestionAnswer(Question question){
+        this.question = question.getQus();
+        this.idGrQs = question.getIdGrQs();
+        this.idQs = question.getIdQs();
     }
 
     public int getAnswer() {

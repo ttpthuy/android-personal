@@ -25,7 +25,7 @@ public class LevelDaiHocScoreAdapter extends BaseAdapter {
     private Context context;
     public static ArrayList<EditModel> editModelArrayList;
     List<EditModel> editModels = new ArrayList<>();
-    private String [] arr = {"Toan", "Ly","Hoa","Van","Anh"};
+    private String [] arr = {"Toan", "Ly","Hoa","Van","Anh", "Sinh", "Sử", "Địa"};
     public LevelDaiHocScoreAdapter(Context context, ArrayList<EditModel> editModelArrayList) {
         this.context = context;
         this.editModelArrayList = editModelArrayList;
@@ -59,7 +59,6 @@ public class LevelDaiHocScoreAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         final ViewHolder holder;
-        Log.i("adapter","aaaaaaaaaaa");
         if (convertView == null) {
             holder = new ViewHolder();
             LayoutInflater inflater = (LayoutInflater) context

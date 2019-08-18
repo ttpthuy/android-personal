@@ -1,4 +1,4 @@
-package com.example.thuytran.listviewtutorial.newgui;
+package com.example.thuytran.listviewtutorial.activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -29,4 +29,9 @@ public class first extends AppCompatActivity {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
+    public void isFit(View view){
+        Intent intent = new Intent(this, Jobs.class);
+        startActivity(intent);
+    }
+
 }

@@ -11,7 +11,7 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".newgui.first">
+        <activity android:name=".activity.first">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -29,9 +29,11 @@
         </activity>
         <activity android:name=".activity.ScoreTable">
         </activity>
-        <!--<activity android:name=".newgui.first">-->
-    <!--</activity>-->
+        <!-- <activity android:name=".newgui.first"> -->
+        <!-- </activity> -->
         <activity android:name=".activity.Welcome">
+        </activity>
+        <activity android:name=".activity.Jobs">
         </activity>
     </application>
 

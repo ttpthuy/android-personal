@@ -5,7 +5,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".newgui.first"
+        tools:context=".activity.first"
         android:orientation="vertical"
         android:background="@drawable/background">
     <Button
@@ -37,5 +37,15 @@
             android:layout_marginTop="30dp"
             android:layout_marginLeft="90dp"
             android:onClick="doTest"
+    />
+    <Button
+            android:id ="@+id/isFit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nghành đó có phù hợp không"
+            android:background="@drawable/round_button"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="140dp"
+            android:onClick="isFit"
     />
 </LinearLayout>

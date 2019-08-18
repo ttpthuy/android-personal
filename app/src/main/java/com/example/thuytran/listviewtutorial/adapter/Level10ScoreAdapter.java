@@ -25,10 +25,12 @@ public class Level10ScoreAdapter extends BaseAdapter {
     private Context context;
     public static ArrayList<EditModel> editModelArrayList;
     List<EditModel> editModels = new ArrayList<>();
-    private String [] arr = {"Toan", "Ly","Hoa","Van","Anh"};
-    public Level10ScoreAdapter(Context context, ArrayList<EditModel> editModelArrayList) {
+    ArrayList<String> subjects ;
+    private String [] arr = {"Toan", "Ly","Hoa","Van","Anh", "Sinh", "Sử", "Địa"};
+    public Level10ScoreAdapter(Context context, ArrayList<EditModel> editModelArrayList, ArrayList<String> subjects) {
         this.context = context;
         this.editModelArrayList = editModelArrayList;
+        this.subjects = subjects;
     }
 
     @Override
@@ -59,7 +61,6 @@ public class Level10ScoreAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         final ViewHolder holder;
-        Log.i("adapter","aaaaaaaaaaa");
         if (convertView == null) {
             holder = new ViewHolder();
             LayoutInflater inflater = (LayoutInflater) context
@@ -75,7 +76,7 @@ public class Level10ScoreAdapter extends BaseAdapter {
             holder = (ViewHolder)convertView.getTag();
         }
 
-        holder.textView.setText(arr[position]);
+        holder.textView.setText(this.subjects.get(position));
 
         holder.editText.setText("");
 

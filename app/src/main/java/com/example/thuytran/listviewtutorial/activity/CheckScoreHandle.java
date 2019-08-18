@@ -61,7 +61,7 @@ public class CheckScoreHandle extends AppCompatActivity {
 
         ArrayList<EditModel> list = new ArrayList<>();
 
-        for(int i = 0; i < 7; i++){
+        for(int i = 0; i < 8; i++){
             EditModel editModel = new EditModel();
             editModel.setEditTextValue(String.valueOf(i));
             list.add(editModel);

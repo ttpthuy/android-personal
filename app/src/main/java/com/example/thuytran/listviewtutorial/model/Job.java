@@ -17,6 +17,9 @@ public class Job implements Serializable {
     }
 
     public Job() {
+        this.id = "";
+        this.name = "";
+        this.group = "";
     }
     public Job(JSONObject jsonObject) throws JSONException {
         this.id = jsonObject.getString("id");

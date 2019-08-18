@@ -70,6 +70,9 @@ public class CheckScoreHandle extends AppCompatActivity {
         sex = intent.getByteExtra("sex", Byte.MIN_VALUE);
         subjects = (ArrayList<String>) intent.getSerializableExtra("subjects");
         job = (Job) intent.getSerializableExtra("job");
+        if(job == null){
+            job = new Job();
+        }
         Log.i("sex", sex + "");
         Log.i("jobSelectedDSMH", subjects + "");
 
@@ -97,6 +100,16 @@ public class CheckScoreHandle extends AppCompatActivity {
             }
         });
         getData();
+        if(subjects.size() < 1){
+            subjects.add("Toán");
+            subjects.add("Lý");
+            subjects.add("Hóa");
+            subjects.add("Văn");
+            subjects.add("Anh");
+            subjects.add("Sinh");
+            subjects.add("Sử");
+            subjects.add("Địa");
+        }
 
         //set number of layout depend on user choice
         for (LinearLayout horizontalLinearLayout : rowsOfLevel) {
@@ -197,6 +210,10 @@ public class CheckScoreHandle extends AppCompatActivity {
         }
         intent.putExtra("schoolscore", schoolScores);
         intent.putExtra("JHListQuestion", questionModels);
+        if(job.getGroup() != null && !job.getGroup().isEmpty()){
+            intent.putExtra("job", job);
+        }
+
         startActivity(intent);
 
     }

@@ -37,31 +37,16 @@ public class MainActivity extends AppCompatActivity implements OnOptionSelected 
     private List<QuestionAnswer> questionModels;
     private RecylerAdapter recylerAdapter;
     int[] answer ;
+    Job job;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initElement();
-
-//        try {
-//            try {
-//                getData();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        } catch (ExecutionException e) {
-//            e.printStackTrace();
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
         //get school score
 
         answerSqlLiteHandle = new AnswerSqlLiteHandle(MainActivity.this);
-
-
 
         recylerAdapter.setQuestionModels(questionModels);
 
@@ -82,6 +67,8 @@ public class MainActivity extends AppCompatActivity implements OnOptionSelected 
         schoolScores = (ArrayList<SchoolScore>) intent.getSerializableExtra("schoolscore");
         //get John Holland Question
         questionModels = (ArrayList<QuestionAnswer>) intent.getSerializableExtra("JHListQuestion");
+        // get Job
+        job = (Job) intent.getSerializableExtra("job");
         //config for view adapter,...
         congifForView();
     }
@@ -111,6 +98,7 @@ public class MainActivity extends AppCompatActivity implements OnOptionSelected 
             JSONObject jsonObject = new JSONObject();
             try {
                 jsonObject.put("answer",answers);
+
 //                jsonObject.put("score",schoolScores );
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -119,11 +107,18 @@ public class MainActivity extends AppCompatActivity implements OnOptionSelected 
             Gson gsonBuilder = new GsonBuilder().create();
             String s = gsonBuilder.toJson(jsonObject);
             Log.i("jsonAns", s);
+
             RequestBody requestBody = new MultipartBody.Builder()
                     .addFormDataPart("s",s)
                     .setType(MultipartBody.FORM)
                     .build();
-            PostToServer postToServer = new PostToServer("http://10.0.3.2:8080/Grquestion1_step2", requestBody);
+            String url = "";
+            if(job != null){
+                url = "http://10.0.3.2:8080/Grquestion2_step3";
+            }else{
+                url = "http://10.0.3.2:8080/Grquestion1_step2";
+            }
+            PostToServer postToServer = new PostToServer(url, requestBody);
             postToServer.execute();
             try {
                 String top3 = postToServer.get();

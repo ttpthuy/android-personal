@@ -2,22 +2,22 @@ package com.example.thuytran.listviewtutorial.model;
 
 public class Answer extends Object {
     private String idQs;
-    private int position;
     private int ans;
+    private String idGroup;
 
-    public Answer(String idQs, int position, int ans) {
+    public Answer(String idQs,  int ans, String idGroup) {
         this.idQs = idQs;
-        this.position = position;
         this.ans = ans;
+        this.idGroup = idGroup;
     }
 
     public Answer() {
     }
 
     public Answer(QuestionAnswer questionAnswer){
-        this.idQs = questionAnswer.getQuestion();
-        this.position = questionAnswer.getSeleectedAnswerPosition();
+        this.idQs = questionAnswer.getIdQs();
         this.ans = questionAnswer.getAnswer();
+        this.idGroup = questionAnswer.getIdGrQs();
     }
 
     public String getIdQs() {
@@ -28,13 +28,7 @@ public class Answer extends Object {
         this.idQs = idQs;
     }
 
-    public int getPosition() {
-        return position;
-    }
 
-    public void setPosition(int position) {
-        this.position = position;
-    }
 
     public int getAns() {
         return ans;
@@ -44,12 +38,20 @@ public class Answer extends Object {
         this.ans = ans;
     }
 
+    public String getIdGroup() {
+        return idGroup;
+    }
+
+    public void setIdGroup(String idGroup) {
+        this.idGroup = idGroup;
+    }
+
     @Override
     public String toString() {
         return "Answer{" +
                 "idQs='" + idQs + '\'' +
-                ", position=" + position +
                 ", ans=" + ans +
+                ", idGroup='" + idGroup + '\'' +
                 '}' + "\n";
     }
 }

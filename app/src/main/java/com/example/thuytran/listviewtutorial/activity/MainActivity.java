@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity implements OnOptionSelected 
             JSONObject jsonObject = new JSONObject();
             try {
                 jsonObject.put("answer",answers);
-                jsonObject.put("score",schoolScores );
+//                jsonObject.put("score",schoolScores );
             } catch (JSONException e) {
                 e.printStackTrace();
             }

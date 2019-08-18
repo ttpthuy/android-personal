@@ -98,7 +98,7 @@ public class JobAdapter extends BaseAdapter implements Filterable {
                     for (int i = 0; i < mOriginalValues.size(); i++) {
                         String data = mOriginalValues.get(i).getJobName();
                         if (data.toLowerCase().startsWith(constraint.toString())) {
-                            FilteredArrList.add(new Job(mOriginalValues.get(i).getIdJob(),mOriginalValues.get(i).getJobName()));
+                            FilteredArrList.add(new Job(mOriginalValues.get(i).getIdJob(),mOriginalValues.get(i).getJobName(), mOriginalValues.get(i).getJobGroup()));
                         }
                     }
                     // set the Filtered result to return

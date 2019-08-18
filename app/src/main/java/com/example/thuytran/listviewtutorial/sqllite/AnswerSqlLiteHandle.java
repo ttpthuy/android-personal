@@ -47,7 +47,7 @@ public class AnswerSqlLiteHandle extends SQLiteOpenHelper {
         SQLiteDatabase database = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_ID_QS, answer.getIdQs());
-        values.put(COLUMN_POSITION, answer.getPosition());
+//        values.put(COLUMN_POSITION, answer.getPosition());
         values.put(COLUMN_ANSWER, answer.getAns());
         database.insert(ANSWER_TABLE, null, values);
         database.close();
@@ -61,7 +61,7 @@ public class AnswerSqlLiteHandle extends SQLiteOpenHelper {
             do {
                 Answer answer = new Answer();
                 answer.setIdQs(cursor.getString(0));
-                answer.setPosition(cursor.getInt(1));
+//                answer.setPosition(cursor.getInt(1));
                 answer.setAns(cursor.getInt(2));
                 answers.add(answer);
             } while (cursor.moveToNext());

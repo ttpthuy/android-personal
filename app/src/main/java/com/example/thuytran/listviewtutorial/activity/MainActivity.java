@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements OnOptionSelected 
     private RecylerAdapter recylerAdapter;
     int[] answer ;
     Job job;
+    ArrayList<Result> results ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +70,7 @@ public class MainActivity extends AppCompatActivity implements OnOptionSelected 
         questionModels = (ArrayList<QuestionAnswer>) intent.getSerializableExtra("JHListQuestion");
         // get Job
         job = (Job) intent.getSerializableExtra("job");
+        results = new ArrayList<>();
         //config for view adapter,...
         congifForView();
     }
@@ -121,13 +123,30 @@ public class MainActivity extends AppCompatActivity implements OnOptionSelected 
             PostToServer postToServer = new PostToServer(url, requestBody);
             postToServer.execute();
             try {
-                String top3 = postToServer.get();
-                Log.i("top3", top3);
+                String dataJSON = postToServer.get();
+                Log.i("result", dataJSON);
+                if(job != null){
+                    JSONObject object = new JSONObject(dataJSON);
+                    Result result = new Result(object);
+                    results.add(result);
+                }else{
+                    JSONArray jsonResult = new JSONArray(dataJSON);
+                    for (int i = 0 ; i < jsonResult.length(); i++){
+                        JSONObject object = jsonResult.getJSONObject(i);
+                        results.add(new Result(object));
+                    }
+                }
             } catch (ExecutionException e) {
                 e.printStackTrace();
             } catch (InterruptedException e) {
                 e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
+            Intent intent = new Intent(MainActivity.this, ResultActivity.class);
+            intent.putExtra("lastResult", results);
+            startActivity(intent);
+            Log.i("lastResult", results + "");
         }
 
     };

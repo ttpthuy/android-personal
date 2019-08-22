@@ -35,6 +35,8 @@
         </activity>
         <activity android:name=".activity.Jobs">
         </activity>
+        <activity android:name=".activity.ResultActivity">
+        </activity>
     </application>
 
 </manifest>

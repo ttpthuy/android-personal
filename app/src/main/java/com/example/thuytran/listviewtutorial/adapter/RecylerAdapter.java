@@ -54,7 +54,9 @@ public class RecylerAdapter extends  RecyclerView.Adapter<RecylerAdapter.ViewHol
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
-        viewHolder.questionTxt.setText(questionModels.get(position).getQuestion());
+        String question = questionModels.get(position).getQuestion();
+        question = Character.toUpperCase(question.charAt(0)) + question.substring(1);
+        viewHolder.questionTxt.setText("Câu " + position + " "+ question);
         viewHolder.an1.setChecked(questionModels.get(position).isOp1Sel());
         viewHolder.an2.setChecked(questionModels.get(position).isOp2Sel());
         viewHolder.an3.setChecked(questionModels.get(position).isOp3Sel());

@@ -26,7 +26,7 @@ public class first extends AppCompatActivity {
         startActivity(intent);
     }
     public void doTest(View view){
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, ScoreTable.class);
         startActivity(intent);
     }
     public void isFit(View view){

@@ -22,18 +22,26 @@
         </activity>
         <activity android:name=".activity.Intro">
         </activity>
-        <activity android:name=".activity.MainActivity">
+        <activity
+                android:label="@string/test"
+                android:name=".activity.MainActivity">
         </activity>
-        <activity android:name=".activity.CheckScoreHandle">
+        <activity
+                android:label="@string/scoreTable"
+                android:name=".activity.CheckScoreHandle">
             android:windowSoftInputMode="adjustPan"
         </activity>
-        <activity android:name=".activity.ScoreTable">
+        <activity
+                android:label="@string/score"
+                android:name=".activity.ScoreTable">
         </activity>
         <!-- <activity android:name=".newgui.first"> -->
         <!-- </activity> -->
         <activity android:name=".activity.Welcome">
         </activity>
-        <activity android:name=".activity.Jobs">
+        <activity
+                android:label="@string/job"
+                android:name=".activity.Jobs">
         </activity>
         <activity android:name=".activity.ResultActivity">
         </activity>

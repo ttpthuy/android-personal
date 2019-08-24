@@ -98,6 +98,15 @@ public class Level11ScoreAdapter extends BaseAdapter {
         });
         return convertView;
     }
+    public static boolean isEditTextEmpty(){
+        for (EditModel editModel: editModelArrayList ) {
+            if(editModel.getEditTextValue().matches("")){
+                return true;
+            }
+
+        }
+        return false;
+    }
 
     private class ViewHolder {
         protected TextView textView;

@@ -49,6 +49,7 @@ public class RecylerAdapter extends  RecyclerView.Adapter<RecylerAdapter.ViewHol
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         LayoutInflater layoutInflater = LayoutInflater.from(viewGroup.getContext());
         View view = layoutInflater.inflate(R.layout.even_row, viewGroup, false);
+
         return new ViewHolder(view);
     }
 
@@ -56,12 +57,18 @@ public class RecylerAdapter extends  RecyclerView.Adapter<RecylerAdapter.ViewHol
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
         String question = questionModels.get(position).getQuestion();
         question = Character.toUpperCase(question.charAt(0)) + question.substring(1);
-        viewHolder.questionTxt.setText("Câu " + position + " "+ question);
+        viewHolder.questionTxt.setText("Câu " + ++position + ": "+ question);
+        --position;
         viewHolder.an1.setChecked(questionModels.get(position).isOp1Sel());
         viewHolder.an2.setChecked(questionModels.get(position).isOp2Sel());
         viewHolder.an3.setChecked(questionModels.get(position).isOp3Sel());
         viewHolder.an4.setChecked(questionModels.get(position).isOp4Sel());
         viewHolder.an5.setChecked(questionModels.get(position).isOp5Sel());
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return super.getItemViewType(position);
     }
 
     @Override

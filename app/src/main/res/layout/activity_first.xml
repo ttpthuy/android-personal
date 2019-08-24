@@ -18,28 +18,20 @@
             android:layout_marginLeft="20dp"
             android:onClick="toIntro"
     />
+
     <Button
-            android:id ="@+id/nhap-diem"
+            android:id="@+id/lam-kiem-tra"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nhập điểm"
-            android:background="@drawable/round_button"
-            android:layout_marginTop="30dp"
-            android:layout_marginLeft="60dp"
-            android:onClick="toScore"
-    />
-    <Button
-            android:id ="@+id/lam-kiem-tra"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Làm bài kiểm tra"
+            android:text="Bạn chưa biết mình muốn gì"
             android:background="@drawable/round_button"
             android:layout_marginTop="30dp"
             android:layout_marginLeft="90dp"
             android:onClick="doTest"
-    />
+            />
+
     <Button
-            android:id ="@+id/isFit"
+            android:id="@+id/isFit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Nghành đó có phù hợp không"
@@ -47,5 +39,5 @@
             android:layout_marginTop="30dp"
             android:layout_marginLeft="140dp"
             android:onClick="isFit"
-    />
+            />
 </LinearLayout>

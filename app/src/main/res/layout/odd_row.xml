@@ -7,7 +7,7 @@
         android:layout_height="match_parent"
         android:weightSum="10"
         android:orientation="vertical"
-        android:background="@android:color/darker_gray"
+        android:background="#F5F5F5"
 >
     <TextView
             android:layout_width="match_parent"
@@ -39,26 +39,31 @@
                     android:id="@+id/ans1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="1 "
                     />
             <RadioButton
                     android:id="@+id/ans2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="2 "
                     />
             <RadioButton
                     android:id="@+id/ans3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="3 "
                     />
             <RadioButton
                     android:id="@+id/ans4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="4 "
                     />
             <RadioButton
                     android:id="@+id/ans5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="5 "
                     />
 
         </RadioGroup>

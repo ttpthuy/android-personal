@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/phone"
             android:text=""
-            android:inputType="none"
+            android:inputType="number"
             android:hint="Số điện thoại"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"

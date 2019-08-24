@@ -20,6 +20,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import javax.xml.datatype.Duration;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
@@ -40,6 +41,8 @@ public class CheckScoreHandle extends AppCompatActivity {
     private ArrayList<QuestionAnswer> questionModels;
     public ArrayList<EditModel> editModelArrayList, editModelArrayList2, editModelArrayList3, editModelArrayList4;
     private RecyclerView lop10View, lop11View, lop12View, daihocView;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -133,6 +136,10 @@ public class CheckScoreHandle extends AppCompatActivity {
         scoreAdapter2 = new Level11ScoreAdapter(CheckScoreHandle.this, editModelArrayList2, subjects);
         scoreAdapter3 = new Level12ScoreAdapter(CheckScoreHandle.this, editModelArrayList3, subjects);
         scoreAdapter4 = new LevelDaiHocScoreAdapter(CheckScoreHandle.this, editModelArrayList3, subjects);
+        scoreLV10.setHorizontalScrollBarEnabled(false);
+        scoreLV11.setHorizontalScrollBarEnabled(false);
+        scoreLV12.setHorizontalScrollBarEnabled(false);
+        scoreLVDH.setHorizontalScrollBarEnabled(false);
         configAdapter();
 
     }
@@ -150,22 +157,26 @@ public class CheckScoreHandle extends AppCompatActivity {
         Intent intent = new Intent(this, MainActivity.class);
         ArrayList<SchoolScore> schoolScores = new ArrayList<>();
         questionModels = new ArrayList<>();
-        if( Level10ScoreAdapter.editModelArrayList.size() > 1){
+        if( Level10ScoreAdapter.isEditTextEmpty() == false){
+            Log.i("sizeOfLIST",Level10ScoreAdapter.editModelArrayList.size() + "");
+            Log.i("sizeOfLIST",Level10ScoreAdapter.editModelArrayList.toArray().length + "");
+            Log.i("sizeOfLIST",Level10ScoreAdapter.editModelArrayList.isEmpty() + "");
+            Log.i("sizeOfLIST",Level10ScoreAdapter.editModelArrayList.get(0).getEditTextValue() + "");
              lop10 = new SchoolScore("lop10", Level10ScoreAdapter.editModelArrayList, job.getGroup() );
              schoolScores.add(lop10);
             Log.i("lop10", lop10 + "");
         }
-        if(idButton > 1 && Level11ScoreAdapter.editModelArrayList.size() > 1){
+        if(idButton > 1 && Level11ScoreAdapter.isEditTextEmpty() == false){
             lop11 = new SchoolScore("lop11", Level11ScoreAdapter.editModelArrayList, job.getGroup() );
             schoolScores.add(lop11);
             Log.i("lop11", lop11 + "");
         }
-        if(idButton > 2 && Level12ScoreAdapter.editModelArrayList.size() > 1){
+        if(idButton > 2 && Level12ScoreAdapter.isEditTextEmpty() == false){
             lop12 = new SchoolScore("lop12", Level12ScoreAdapter.editModelArrayList, job.getGroup() );
             schoolScores.add(lop12);
             Log.i("lop12", lop12 + "");
         }
-        if( idButton > 3 && LevelDaiHocScoreAdapter.editModelArrayList.size() > 1){
+        if( idButton > 3 && LevelDaiHocScoreAdapter.isEditTextEmpty() == false){
             lop13 = new SchoolScore("daihoc", LevelDaiHocScoreAdapter.editModelArrayList, job.getGroup() );
             schoolScores.add(lop13);
             Log.i("lop13", lop13 + "");
@@ -180,41 +191,45 @@ public class CheckScoreHandle extends AppCompatActivity {
 
         JSONObject jsonObject = new JSONObject();
         Gson gsonBuilder = new GsonBuilder().create();
-        jsonObject.put("score", schoolScores );
-        jsonObject.put("sex", this.sex);
-        Log.i("sexeee", this.sex + "");
+        if(schoolScores.size() >= 1) {
+            jsonObject.put("score", schoolScores);
+            jsonObject.put("sex", this.sex);
+            Log.i("sexeee", this.sex + "");
 
-        String url = "";
-        if(job.getGroup() != null && !job.getGroup().isEmpty()  ){
-            url = "http://10.0.3.2:8080/Grquestion2_step2";
-            jsonObject.put("jobOfG", job);
-        }else{
-            url = "http://10.0.3.2:8080/Grquestion1_step1";
-        }
-        String s = gsonBuilder.toJson(jsonObject);
-        RequestBody requestBody = new MultipartBody.Builder()
-                .addFormDataPart("s", s)
-                .setType(MultipartBody.FORM)
-                .build();
-        PostToServer postToServer = new PostToServer(url, requestBody);
+            String url = "";
+            if(job.getGroup() != null && !job.getGroup().isEmpty()  ){
+                url = "http://10.0.3.2:8080/Grquestion2_step2";
+                jsonObject.put("jobOfG", job);
+            }else{
+                url = "http://10.0.3.2:8080/Grquestion1_step1";
+            }
+            String s = gsonBuilder.toJson(jsonObject);
+            RequestBody requestBody = new MultipartBody.Builder()
+                    .addFormDataPart("s", s)
+                    .setType(MultipartBody.FORM)
+                    .build();
+            PostToServer postToServer = new PostToServer(url, requestBody);
 
-        postToServer.execute();
-        String dataJSON = postToServer.get();
-        Log.i("miningques", dataJSON);
+            postToServer.execute();
+            String dataJSON = postToServer.get();
+            Log.i("miningques", dataJSON);
 
-        JSONArray JHListQuestion = new JSONArray(dataJSON);
-        for (int i = 0 ; i < JHListQuestion.length(); i++){
-            JSONObject object = JHListQuestion.getJSONObject(i);
+            JSONArray JHListQuestion = new JSONArray(dataJSON);
+            for (int i = 0 ; i < JHListQuestion.length(); i++){
+                JSONObject object = JHListQuestion.getJSONObject(i);
 //            questionList.add(new Question(object));
-            questionModels.add(new QuestionAnswer(new Question(object)));
-        }
-        intent.putExtra("schoolscore", schoolScores);
-        intent.putExtra("JHListQuestion", questionModels);
-        if(job.getGroup() != null && !job.getGroup().isEmpty()){
-            intent.putExtra("job", job);
-        }
+                questionModels.add(new QuestionAnswer(new Question(object)));
+            }
+            intent.putExtra("schoolscore", schoolScores);
+            intent.putExtra("JHListQuestion", questionModels);
+            if(job.getGroup() != null && !job.getGroup().isEmpty()){
+                intent.putExtra("job", job);
+            }
 
-        startActivity(intent);
+            startActivity(intent);
+        }else{
+            Toast.makeText(this,"Bạn vui lòng nhập điểm nhé", Toast.LENGTH_SHORT).show();
+        }
 
     }
 }

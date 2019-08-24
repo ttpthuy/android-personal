@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">ListViewTutorial</string>
+    <string name="app_name">Tư vấn nghề nghiệp</string>
+    <string name="scoreTable">Chọn giới tính và lớp đang học</string>
+    <string name="score">Nhập điểm </string>
+    <string name="test">Làm bài kiểm tra</string>
+    <string name="job">Chọn nghành bạn yêu thích</string>
+
 </resources>

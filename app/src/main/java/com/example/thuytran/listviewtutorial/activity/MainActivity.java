@@ -87,33 +87,7 @@ public class MainActivity extends AppCompatActivity implements OnOptionSelected 
     private View.OnClickListener getAnsListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Toast.makeText(MainActivity.this,"DONE", Toast.LENGTH_SHORT).show();
-            recylerAdapter.getQuestionModels();
-            Log.i("last", Arrays.toString(answer) + "");
-            List<Answer> answers = new ArrayList<>();
-            for(int i = 0; i < recylerAdapter.getQuestionModels().size() ; i ++ ){
-                Answer answer = new Answer(recylerAdapter.getQuestionModels().get(i));
-                answers.add(answer);
-                Log.i("total", answers.get(i).getIdQs() + "    " +  answers.get(i).getAns());
-            }
-            Log.i("last", answers + "");
-            JSONObject jsonObject = new JSONObject();
-            try {
-                jsonObject.put("answer",answers);
-
-//                jsonObject.put("score",schoolScores );
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            Log.i("json", jsonObject + "");
-            Gson gsonBuilder = new GsonBuilder().create();
-            String s = gsonBuilder.toJson(jsonObject);
-            Log.i("jsonAns", s);
-
-            RequestBody requestBody = new MultipartBody.Builder()
-                    .addFormDataPart("s",s)
-                    .setType(MultipartBody.FORM)
-                    .build();
+          RequestBody requestBody =   postAnsToServer();
             String url = "";
             if(job != null){
                 url = "http://10.0.3.2:8080/Grquestion2_step3";
@@ -131,9 +105,14 @@ public class MainActivity extends AppCompatActivity implements OnOptionSelected 
                     results.add(result);
                 }else{
                     JSONArray jsonResult = new JSONArray(dataJSON);
-                    for (int i = 0 ; i < jsonResult.length(); i++){
-                        JSONObject object = jsonResult.getJSONObject(i);
-                        results.add(new Result(object));
+                    if(jsonResult.length() > 0){
+                        for (int i = 0 ; i < jsonResult.length(); i++) {
+                            JSONObject object = jsonResult.getJSONObject(i);
+                            results.add(new Result(object));
+                        }
+                    }else{
+                        getMoreQuestion();
+                        return;
                     }
                 }
             } catch (ExecutionException e) {
@@ -150,9 +129,54 @@ public class MainActivity extends AppCompatActivity implements OnOptionSelected 
         }
 
     };
+    public void getMoreQuestion() throws ExecutionException, InterruptedException, JSONException {
+        String url = "http://10.0.3.2:8080/Grquestion1_step3_Expand";
+        DownloadJSON getMoreQues = new DownloadJSON(url);
+        getMoreQues.execute();
+        String newQues = getMoreQues.get();
+        Log.i("newQues", newQues);
+        JSONArray JHListQuestion = new JSONArray(newQues);
+        questionModels.clear();
+        questionModels = new ArrayList<>();
+        for (int i = 0 ; i < JHListQuestion.length(); i++){
+            JSONObject object = JHListQuestion.getJSONObject(i);
+            questionModels.add(new QuestionAnswer(new Question(object)));
+        }
+        Intent intent = new Intent(MainActivity.this, MainActivity.class);
+        intent.putExtra("JHListQuestion",(ArrayList<QuestionAnswer>) questionModels);
+        startActivity(intent);
+    }
+    public RequestBody postAnsToServer(){
+        Toast.makeText(MainActivity.this,"DONE", Toast.LENGTH_SHORT).show();
+        recylerAdapter.getQuestionModels();
+        Log.i("last", Arrays.toString(answer) + "");
+        List<Answer> answers = new ArrayList<>();
+        for(int i = 0; i < recylerAdapter.getQuestionModels().size() ; i ++ ){
+            Answer answer = new Answer(recylerAdapter.getQuestionModels().get(i));
+            answers.add(answer);
+            Log.i("total", answers.get(i).getIdQs() + "    " +  answers.get(i).getAns());
+        }
+        Log.i("last", answers + "");
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("answer",answers);
 
+//                jsonObject.put("score",schoolScores );
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Log.i("json", jsonObject + "");
+        Gson gsonBuilder = new GsonBuilder().create();
+        String s = gsonBuilder.toJson(jsonObject);
+        Log.i("jsonAns", s);
 
+        RequestBody requestBody = new MultipartBody.Builder()
+                .addFormDataPart("s",s)
+                .setType(MultipartBody.FORM)
+                .build();
+        return requestBody;
 
+    }
     private void getData() throws ExecutionException, InterruptedException, JSONException, IOException {
         questionModels=new ArrayList<QuestionAnswer>();
         answer = new int[questionModels.size()];
@@ -164,20 +188,9 @@ public class MainActivity extends AppCompatActivity implements OnOptionSelected 
         JSONArray jsonArrayDanhSachSanPham = new JSONArray(dataJSON);
         for (int i = 0 ; i < jsonArrayDanhSachSanPham.length(); i++){
             JSONObject object = jsonArrayDanhSachSanPham.getJSONObject(i);
-//            questionList.add(new Question(object));
             questionModels.add(new QuestionAnswer(new Question(object)));
         }
-//        Collections.shuffle(questionList);
-
-
-//        for (int i = 0; i < 20; i++) {
-//            QuestionAnswer questionModel = new QuestionAnswer();
-//            questionModel.setQuestion("Question " + (i + 1));
-//            questionModels.add(questionModel);
-//        }
-
-
-
+        Collections.shuffle(questionList);
     }
 
 

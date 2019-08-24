@@ -11,12 +11,16 @@
             android:id="@+id/etSearch"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:hint="Tìm kiếm"
             />
     <ListView
             android:id="@+id/lvJobs"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            ></ListView>
+            android:layout_marginStart="10dp"
+            >
+
+    </ListView>
 
 
 </LinearLayout>

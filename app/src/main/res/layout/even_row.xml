@@ -35,30 +35,35 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="false"
+                    android:text="1 "
                     />
             <RadioButton
                     android:id="@+id/ans2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="false"
+                    android:text="2 "
                     />
             <RadioButton
                     android:id="@+id/ans3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="false"
+                    android:text="3 "
                     />
             <RadioButton
                     android:id="@+id/ans4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="false"
+                    android:text="4 "
                     />
             <RadioButton
                     android:id="@+id/ans5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="false"
+                    android:text="5 "
                     />
 
     </LinearLayout>

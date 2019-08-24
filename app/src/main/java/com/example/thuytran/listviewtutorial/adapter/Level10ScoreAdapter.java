@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.example.thuytran.listviewtutorial.R;
 import com.example.thuytran.listviewtutorial.model.EditModel;
 
@@ -62,16 +63,12 @@ public class Level10ScoreAdapter extends BaseAdapter {
         final ViewHolder holder;
         if (convertView == null) {
             holder = new ViewHolder();
-            LayoutInflater inflater = (LayoutInflater) context
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.score_row, null, true);
-
-            holder.editText = (EditText) convertView.findViewById(R.id.scoreET);
             holder.textView = (TextView) convertView.findViewById(R.id.textSubject);
-
+            holder.editText = (EditText) convertView.findViewById(R.id.scoreET);
             convertView.setTag(holder);
         }else {
-            // the getTag returns the viewHolder object set as a tag to the view
             holder = (ViewHolder)convertView.getTag();
         }
 
@@ -88,15 +85,25 @@ public class Level10ScoreAdapter extends BaseAdapter {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 editModelArrayList.get(position).setEditTextValue(holder.editText.getText().toString());
-                Log.i("========", editModelArrayList.get(position).getEditTextValue());
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
-
+                if(!holder.editText.getText().toString().isEmpty()) {
+                    int number = Integer.parseInt(holder.editText.getText().toString());
+                }
             }
         });
         return convertView;
+    }
+    public static boolean isEditTextEmpty(){
+        for (EditModel editModel: editModelArrayList ) {
+            if(editModel.getEditTextValue().matches("")){
+                return true;
+            }
+
+        }
+        return false;
     }
 
     private class ViewHolder {

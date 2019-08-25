@@ -19,7 +19,6 @@ public class ScoreAdapter extends BaseAdapter {
     private List<String> subjectList;
     ViewHold viewHold;
     LayoutInflater layoutInflater;
-    Map<String,String> score;
 
     public ScoreAdapter(Context context, List<String> subjectList) {
         this.context = context;

@@ -3,6 +3,7 @@ package com.example.thuytran.listviewtutorial.activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -36,11 +37,15 @@ public class CheckScoreHandle extends AppCompatActivity {
     Level11ScoreAdapter scoreAdapter2;
     Level12ScoreAdapter scoreAdapter3;
     LevelDaiHocScoreAdapter scoreAdapter4;
-    ScoreSqlLiteHandler scoreSqlLiteHandler;
+//    Level10RecylerAdapter lop10RecylerAdapter;
+//    Lop11RecylerAdapter lop11RecylerAdapter;
+//    Level12RecylerAdapter lop12RecylerAdapter;
+//    LevelDaiHocRecylerAdapter daiHocRecylerAdapter;
+//    ScoreSqlLiteHandler scoreSqlLiteHandler;
     Job job;
     private ArrayList<QuestionAnswer> questionModels;
     public ArrayList<EditModel> editModelArrayList, editModelArrayList2, editModelArrayList3, editModelArrayList4;
-    private RecyclerView lop10View, lop11View, lop12View, daihocView;
+//    private RecyclerView lop10View, lop11View, lop12View, daihocView;
 
 
     @Override
@@ -136,10 +141,15 @@ public class CheckScoreHandle extends AppCompatActivity {
         scoreAdapter2 = new Level11ScoreAdapter(CheckScoreHandle.this, editModelArrayList2, subjects);
         scoreAdapter3 = new Level12ScoreAdapter(CheckScoreHandle.this, editModelArrayList3, subjects);
         scoreAdapter4 = new LevelDaiHocScoreAdapter(CheckScoreHandle.this, editModelArrayList3, subjects);
-        scoreLV10.setHorizontalScrollBarEnabled(false);
-        scoreLV11.setHorizontalScrollBarEnabled(false);
-        scoreLV12.setHorizontalScrollBarEnabled(false);
-        scoreLVDH.setHorizontalScrollBarEnabled(false);
+
+//        lop10RecylerAdapter = new Level10RecylerAdapter(this, editModelArrayList, subjects);
+//        lop11RecylerAdapter = new Lop11RecylerAdapter(this, editModelArrayList, subjects);
+//        lop12RecylerAdapter = new Level12RecylerAdapter(this, editModelArrayList, subjects);
+//        daiHocRecylerAdapter = new LevelDaiHocRecylerAdapter(this, editModelArrayList, subjects);
+//        lop10View = findViewById(R.id.lop10View);
+//        lop11View = findViewById(R.id.lop11View);
+//        lop12View = findViewById(R.id.lop12View);
+//        daihocView = findViewById(R.id.daihocView);
         configAdapter();
 
     }
@@ -149,6 +159,16 @@ public class CheckScoreHandle extends AppCompatActivity {
         scoreLV11.setAdapter(scoreAdapter2);
         scoreLV12.setAdapter(scoreAdapter3);
         scoreLVDH.setAdapter(scoreAdapter);
+//        LinearLayoutManager layoutManager = new LinearLayoutManager(CheckScoreHandle.this);
+//        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+//        lop10View.setLayoutManager(layoutManager);
+//        lop11View.setLayoutManager(layoutManager);
+//        lop12View.setLayoutManager(layoutManager);
+//        daihocView.setLayoutManager(layoutManager);
+//        lop10View.setAdapter(lop10RecylerAdapter);
+//        lop11View.setAdapter(lop11RecylerAdapter);
+//        lop12View.setAdapter(lop12RecylerAdapter);
+//        daihocView.setAdapter(daiHocRecylerAdapter);
 
     }
 
@@ -158,10 +178,6 @@ public class CheckScoreHandle extends AppCompatActivity {
         ArrayList<SchoolScore> schoolScores = new ArrayList<>();
         questionModels = new ArrayList<>();
         if( Level10ScoreAdapter.isEditTextEmpty() == false){
-            Log.i("sizeOfLIST",Level10ScoreAdapter.editModelArrayList.size() + "");
-            Log.i("sizeOfLIST",Level10ScoreAdapter.editModelArrayList.toArray().length + "");
-            Log.i("sizeOfLIST",Level10ScoreAdapter.editModelArrayList.isEmpty() + "");
-            Log.i("sizeOfLIST",Level10ScoreAdapter.editModelArrayList.get(0).getEditTextValue() + "");
              lop10 = new SchoolScore("lop10", Level10ScoreAdapter.editModelArrayList, job.getGroup() );
              schoolScores.add(lop10);
             Log.i("lop10", lop10 + "");

@@ -126,6 +126,7 @@ public class MainActivity extends AppCompatActivity implements OnOptionSelected 
             intent.putExtra("lastResult", results);
             startActivity(intent);
             Log.i("lastResult", results + "");
+            results.clear();
         }
 
     };

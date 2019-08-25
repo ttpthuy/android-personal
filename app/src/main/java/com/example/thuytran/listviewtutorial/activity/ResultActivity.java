@@ -1,32 +1,43 @@
 package com.example.thuytran.listviewtutorial.activity;
 
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import com.example.thuytran.listviewtutorial.R;
+import com.example.thuytran.listviewtutorial.adapter.ResultAdapter;
 import com.example.thuytran.listviewtutorial.model.Result;
 
 import java.util.ArrayList;
 
 public class ResultActivity extends AppCompatActivity {
     ListView resultLV;
+    ArrayList<Result> resultArrayList;
+    TextView tv, noFit;
+    ProgressBar mProgress;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
+        getResult();
+    }
+
+
+    private void getResult() {
         Intent intent = getIntent();
-        ArrayList<Result> resultArrayList = (ArrayList<Result>) intent.getSerializableExtra("lastResult");
+        resultArrayList = (ArrayList<Result>) intent.getSerializableExtra("lastResult");
         Log.i("lastResult2", resultArrayList + "");
         resultLV = (ListView) findViewById(R.id.resultLV);
-        ArrayList<String> strings = new ArrayList<>();
-        for(Result result : resultArrayList){
-            strings.add(result.getName() + "\n" + result.getScore() + "\n" + result.getMaleRatio());
-        }
-        ArrayAdapter<String> resultArrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, strings );
+        ResultAdapter resultArrayAdapter = new ResultAdapter(this, resultArrayList);
         resultLV.setAdapter(resultArrayAdapter);
 
     }
+
 }

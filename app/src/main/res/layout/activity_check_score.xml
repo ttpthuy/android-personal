@@ -1,35 +1,29 @@
-<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--              xmlns:tools="http://schemas.android.com/tools"-->
-<!--              android:descendantFocusability="beforeDescendants"-->
-<!--              android:layout_width="match_parent"-->
-<!--              android:layout_height="match_parent"-->
-<!--              android:orientation="vertical"-->
-<!--              tools:context=".activity.CheckScoreHandle">-->
-<!-- vertical ScrollView to make all the items or views scrollable -->
 <ScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        tools:context=".activity.CheckScoreHandle"
         android:fillViewport="true"
-        android:orientation="vertical"
-        tools:context=".activity.CheckScoreHandle">
+        android:overScrollMode="always"
+       >
     <!-- LinearLayout Inside ScrollView -->
     <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+         >
 
         <!-- create a Linear Layout with horizontal orientation and weightSum property -->
 
         <LinearLayout
                 android:id="@+id/firstLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:orientation="vertical"
-                >
+                android:orientation="horizontal"
+                android:layout_height="match_parent"
+          >
 
             <!-- place one TextView and one EditText inside layout using weight property -->
 
@@ -37,12 +31,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Lớp 10"
+
                     />
 
             <ListView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@android:dimen/thumbnail_width"
                     android:id="@+id/scoreLV10"
+                    android:overScrollMode="ifContentScrolls"
 
                     />
             <!--<android.support.v7.widget.RecyclerView-->
@@ -59,7 +55,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:orientation="vertical"
+                android:orientation="horizontal"
                 >
 
             <!-- place one TextView and one EditText inside layout using weight property -->
@@ -69,9 +65,10 @@
                     android:layout_height="wrap_content"
                     android:text="Lớp 11"
                     />
+
             <ListView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@android:dimen/thumbnail_width"
                     android:id="@+id/scoreLV11"
                     />
             <!--<android.support.v7.widget.RecyclerView-->
@@ -89,18 +86,19 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:orientation="vertical"
-                android:weightSum="10">
+                >
 
             <!-- place one TextView and one EditText inside layout using weight property -->
 
             <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Lớp 12"
                     />
+
             <ListView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@android:dimen/thumbnail_width"
                     android:id="@+id/scoreLV12"
                     />
             <!--<android.support.v7.widget.RecyclerView-->
@@ -127,6 +125,7 @@
                     android:layout_height="wrap_content"
                     android:text="Đại học"
                     />
+
             <ListView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -142,11 +141,10 @@
         <!-- create a Linear Layout with horizontal orientation and weightSum property -->
 
 
-
         <Button
                 android:id="@+id/btnSendScore"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@android:dimen/thumbnail_height"
                 android:layout_marginTop="30dp"
                 android:text="Xong"
                 />

@@ -53,7 +53,9 @@ public class ResultAdapter extends BaseAdapter {
             resultHolder = (ResultHolder) convertView.getTag();
         }
         Result result = results.get(position);
-        result.setScore(result.getScore() * 10);
+        String score = String.valueOf(Math.round(result.getScore() * 10));
+        score = score.substring(0,2);
+        result.setScore(Integer.parseInt(score));
         resultHolder.noFit.setVisibility(View.INVISIBLE);
         if(result.getScore() < 0){
             resultHolder.noFit.setVisibility(View.VISIBLE);
@@ -61,6 +63,7 @@ public class ResultAdapter extends BaseAdapter {
         }
         resultHolder.tv.setText(result.getScore() + "%");
         resultHolder.result.setText(result.getName() + "\n" + result.getScore());
+        resultHolder.mProgress.setProgress((int)result.getScore());
         return convertView;
     }
     private class ResultHolder{

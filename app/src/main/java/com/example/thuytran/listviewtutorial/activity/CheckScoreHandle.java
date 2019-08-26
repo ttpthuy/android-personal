@@ -9,10 +9,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.*;
 import com.example.thuytran.listviewtutorial.R;
-import com.example.thuytran.listviewtutorial.adapter.*;
+import com.example.thuytran.listviewtutorial.adapter.score.*;
+import com.example.thuytran.listviewtutorial.isSuitable.activity.Check;
 import com.example.thuytran.listviewtutorial.jsonconvert.PostToServer;
 import com.example.thuytran.listviewtutorial.model.*;
-import com.example.thuytran.listviewtutorial.sqllite.ScoreSqlLiteHandler;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import okhttp3.MultipartBody;
@@ -21,7 +21,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import javax.xml.datatype.Duration;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
@@ -37,15 +36,14 @@ public class CheckScoreHandle extends AppCompatActivity {
     Level11ScoreAdapter scoreAdapter2;
     Level12ScoreAdapter scoreAdapter3;
     LevelDaiHocScoreAdapter scoreAdapter4;
-//    Level10RecylerAdapter lop10RecylerAdapter;
-//    Lop11RecylerAdapter lop11RecylerAdapter;
-//    Level12RecylerAdapter lop12RecylerAdapter;
-//    LevelDaiHocRecylerAdapter daiHocRecylerAdapter;
-//    ScoreSqlLiteHandler scoreSqlLiteHandler;
     Job job;
+    RecyclerView lv10, lv11, lv12, lvdh;
+    Lv10RecyclerAdapter lv10RecyclerAdapter;
+    Lv11RecyclerAdapter lv11RecyclerAdapter;
+    Lv12RecyclerAdapter lv12RecyclerAdapter;
+    LvDhRecyclerAdapter lvdhRecyclerAdapter;
     private ArrayList<QuestionAnswer> questionModels;
     public ArrayList<EditModel> editModelArrayList, editModelArrayList2, editModelArrayList3, editModelArrayList4;
-//    private RecyclerView lop10View, lop11View, lop12View, daihocView;
 
 
     @Override
@@ -54,9 +52,6 @@ public class CheckScoreHandle extends AppCompatActivity {
         setContentView(R.layout.activity_check_score);
 
         initElement();
-
-//        scoreSqlLiteHandler = new ScoreSqlLiteHandler(CheckScoreHandle.this);
-
     }
     private ArrayList<EditModel> populateList(int size){
 
@@ -66,7 +61,7 @@ public class CheckScoreHandle extends AppCompatActivity {
         }
         for(int i = 0; i < size; i++){
             EditModel editModel = new EditModel();
-            editModel.setEditTextValue(String.valueOf(i));
+            editModel.setEditTextValue("");
             list.add(editModel);
         }
 
@@ -128,47 +123,45 @@ public class CheckScoreHandle extends AppCompatActivity {
             rowsOfLevel[row].setVisibility(View.VISIBLE);
         }
 
-        //set adapter for listview
-        scoreLV10 = (ListView) findViewById(R.id.scoreLV10);
-        scoreLV11 = (ListView) findViewById(R.id.scoreLV11);
-        scoreLV12 = (ListView) findViewById(R.id.scoreLV12);
-        scoreLVDH = (ListView) findViewById(R.id.scoreLVDH);
         editModelArrayList = populateList(subjects.size());
         editModelArrayList2 = populateList(subjects.size());
         editModelArrayList3 = populateList(subjects.size());
         editModelArrayList4 = populateList(subjects.size());
-        scoreAdapter = new Level10ScoreAdapter(CheckScoreHandle.this, editModelArrayList, subjects);
-        scoreAdapter2 = new Level11ScoreAdapter(CheckScoreHandle.this, editModelArrayList2, subjects);
-        scoreAdapter3 = new Level12ScoreAdapter(CheckScoreHandle.this, editModelArrayList3, subjects);
-        scoreAdapter4 = new LevelDaiHocScoreAdapter(CheckScoreHandle.this, editModelArrayList3, subjects);
 
-//        lop10RecylerAdapter = new Level10RecylerAdapter(this, editModelArrayList, subjects);
-//        lop11RecylerAdapter = new Lop11RecylerAdapter(this, editModelArrayList, subjects);
-//        lop12RecylerAdapter = new Level12RecylerAdapter(this, editModelArrayList, subjects);
-//        daiHocRecylerAdapter = new LevelDaiHocRecylerAdapter(this, editModelArrayList, subjects);
-//        lop10View = findViewById(R.id.lop10View);
-//        lop11View = findViewById(R.id.lop11View);
-//        lop12View = findViewById(R.id.lop12View);
-//        daihocView = findViewById(R.id.daihocView);
+        lv10 = (RecyclerView) findViewById(R.id.lop10View);
+        lv11 = (RecyclerView) findViewById(R.id.lop11View);
+        lv12 = (RecyclerView) findViewById(R.id.lop12View);
+        lvdh = (RecyclerView) findViewById(R.id.daihocView);
+
+
         configAdapter();
 
     }
 
     private void configAdapter() {
-        scoreLV10.setAdapter(scoreAdapter);
-        scoreLV11.setAdapter(scoreAdapter2);
-        scoreLV12.setAdapter(scoreAdapter3);
-        scoreLVDH.setAdapter(scoreAdapter);
-//        LinearLayoutManager layoutManager = new LinearLayoutManager(CheckScoreHandle.this);
-//        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-//        lop10View.setLayoutManager(layoutManager);
-//        lop11View.setLayoutManager(layoutManager);
-//        lop12View.setLayoutManager(layoutManager);
-//        daihocView.setLayoutManager(layoutManager);
-//        lop10View.setAdapter(lop10RecylerAdapter);
-//        lop11View.setAdapter(lop11RecylerAdapter);
-//        lop12View.setAdapter(lop12RecylerAdapter);
-//        daihocView.setAdapter(daiHocRecylerAdapter);
+        lv10RecyclerAdapter = new Lv10RecyclerAdapter(CheckScoreHandle.this, editModelArrayList, subjects);
+        lv11RecyclerAdapter = new Lv11RecyclerAdapter(CheckScoreHandle.this, editModelArrayList2, subjects);
+        lv12RecyclerAdapter = new Lv12RecyclerAdapter(CheckScoreHandle.this, editModelArrayList3, subjects);
+        lvdhRecyclerAdapter = new LvDhRecyclerAdapter(CheckScoreHandle.this, editModelArrayList4, subjects);
+
+        lv10.setAdapter(lv10RecyclerAdapter);
+        lv11.setAdapter(lv11RecyclerAdapter);
+        lv12.setAdapter(lv12RecyclerAdapter);
+        lvdh.setAdapter(lvdhRecyclerAdapter);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(CheckScoreHandle.this);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(CheckScoreHandle.this);
+        linearLayoutManager2.setOrientation(LinearLayoutManager.VERTICAL);
+        LinearLayoutManager linearLayoutManager3 = new LinearLayoutManager(CheckScoreHandle.this);
+        linearLayoutManager3.setOrientation(LinearLayoutManager.VERTICAL);
+        LinearLayoutManager linearLayoutManager4 = new LinearLayoutManager(CheckScoreHandle.this);
+        linearLayoutManager4.setOrientation(LinearLayoutManager.VERTICAL);
+
+        lv10.setLayoutManager(linearLayoutManager);
+        lv11.setLayoutManager(linearLayoutManager2);
+        lv12.setLayoutManager(linearLayoutManager3);
+        lvdh.setLayoutManager(linearLayoutManager4);
+
 
     }
 
@@ -177,23 +170,23 @@ public class CheckScoreHandle extends AppCompatActivity {
         Intent intent = new Intent(this, MainActivity.class);
         ArrayList<SchoolScore> schoolScores = new ArrayList<>();
         questionModels = new ArrayList<>();
-        if( Level10ScoreAdapter.isEditTextEmpty() == false){
-             lop10 = new SchoolScore("lop10", Level10ScoreAdapter.editModelArrayList, job.getGroup() );
+        if( Lv10RecyclerAdapter.isEditTextEmpty() == false){
+             lop10 = new SchoolScore("lop10", Lv10RecyclerAdapter.editModelArrayList, job.getGroup() );
              schoolScores.add(lop10);
             Log.i("lop10", lop10 + "");
         }
-        if(idButton > 1 && Level11ScoreAdapter.isEditTextEmpty() == false){
-            lop11 = new SchoolScore("lop11", Level11ScoreAdapter.editModelArrayList, job.getGroup() );
+        if(idButton > 1 && Lv11RecyclerAdapter.isEditTextEmpty() == false){
+            lop11 = new SchoolScore("lop11", Lv11RecyclerAdapter.editModelArrayList, job.getGroup() );
             schoolScores.add(lop11);
             Log.i("lop11", lop11 + "");
         }
-        if(idButton > 2 && Level12ScoreAdapter.isEditTextEmpty() == false){
-            lop12 = new SchoolScore("lop12", Level12ScoreAdapter.editModelArrayList, job.getGroup() );
+        if(idButton > 2 && Lv12RecyclerAdapter.isEditTextEmpty() == false){
+            lop12 = new SchoolScore("lop12", Lv12RecyclerAdapter.editModelArrayList, job.getGroup() );
             schoolScores.add(lop12);
             Log.i("lop12", lop12 + "");
         }
-        if( idButton > 3 && LevelDaiHocScoreAdapter.isEditTextEmpty() == false){
-            lop13 = new SchoolScore("daihoc", LevelDaiHocScoreAdapter.editModelArrayList, job.getGroup() );
+        if( idButton > 3 && LvDhRecyclerAdapter.isEditTextEmpty() == false){
+            lop13 = new SchoolScore("daihoc", LvDhRecyclerAdapter.editModelArrayList, job.getGroup() );
             schoolScores.add(lop13);
             Log.i("lop13", lop13 + "");
         }

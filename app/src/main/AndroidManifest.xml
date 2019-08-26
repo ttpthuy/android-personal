@@ -29,7 +29,6 @@
         <activity
                 android:label="@string/scoreTable"
                 android:name=".activity.CheckScoreHandle">
-            android:windowSoftInputMode="adjustPan"
         </activity>
         <activity
                 android:label="@string/score"
@@ -43,7 +42,9 @@
                 android:label="@string/job"
                 android:name=".activity.Jobs">
         </activity>
-        <activity android:name=".activity.ResultActivity">
+        <activity
+                android:label="Kết quả"
+                android:name=".activity.ResultActivity">
         </activity>
     </application>
 

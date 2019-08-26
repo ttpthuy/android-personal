@@ -1,4 +1,4 @@
-package com.example.thuytran.listviewtutorial.adapter;
+package com.example.thuytran.listviewtutorial.adapter.score;
 
 import android.content.Context;
 import android.text.Editable;
@@ -20,13 +20,13 @@ import java.util.List;
 /**
  * Created by Parsania Hardik on 03-Jan-17.
  */
-public class Level11ScoreAdapter extends BaseAdapter {
+public class Level12ScoreAdapter extends BaseAdapter {
 
     private Context context;
     public static ArrayList<EditModel> editModelArrayList;
     List<EditModel> editModels = new ArrayList<>();
     ArrayList<String> subjects ;
-    public Level11ScoreAdapter(Context context, ArrayList<EditModel> editModelArrayList , ArrayList<String> subjects) {
+    public Level12ScoreAdapter(Context context, ArrayList<EditModel> editModelArrayList, ArrayList<String> subjects) {
         this.context = context;
         this.editModelArrayList = editModelArrayList;
         this.subjects = subjects;
@@ -107,7 +107,6 @@ public class Level11ScoreAdapter extends BaseAdapter {
         }
         return false;
     }
-
     private class ViewHolder {
         protected TextView textView;
         protected EditText editText;

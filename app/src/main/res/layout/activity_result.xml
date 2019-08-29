@@ -6,15 +6,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:context=".activity.ResultActivity"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:weightSum="4"
+        >
 
 
     <ListView
             android:layout_width="match_parent"
-            android:layout_height="fill_parent"
-            android:id="@+id/resultLV">
-
+            android:layout_height="wrap_content"
+            android:id="@+id/resultLV"
+            android:layout_weight="3"
+            >
     </ListView>
+    <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Trở về trang chủ"
+            android:layout_weight="1"
+            android:onClick="backToMain"
+            />
 
 
 </LinearLayout>

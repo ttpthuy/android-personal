@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/textView"
             android:layout_marginLeft="20dp"
-            android:textSize="15sp"
+            android:textSize="17sp"
             android:textColor="#222"
 
     />

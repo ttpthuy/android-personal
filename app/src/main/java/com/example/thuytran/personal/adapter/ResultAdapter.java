@@ -63,9 +63,9 @@ public class ResultAdapter extends BaseAdapter {
                 resultHolder.noFit.setVisibility(View.VISIBLE);
                 result.setScore(0);
             }
-            resultHolder.tv.setText(result.getScore() + "%");
+            resultHolder.tv.setText( (int)result.getScore() + "%");
             resultHolder.result.setText("Nghành: " + result.getName() + "\n"
-                    + "Độ phù hợp: "+ result.getScore());
+                    + "Độ phù hợp: "+ (int)result.getScore() + "%");
             resultHolder.mProgress.setProgress((int) result.getScore());
         }else{
             resultHolder.noFit.setText("Xin lỗi bạn không phù hợp với nghành nào ở ĐH");

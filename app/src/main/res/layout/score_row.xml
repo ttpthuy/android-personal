@@ -24,10 +24,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:id="@+id/scoreET"
-                android:inputType="number"
                 android:layout_marginEnd="40dp"
                 android:layout_marginLeft="5dp"
                 android:layout_weight="1"
+                android:inputType="numberDecimal"
                 />
 
 </TableRow>

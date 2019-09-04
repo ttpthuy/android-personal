@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.*;
 import com.example.thuytran.personal.R;
 import com.example.thuytran.personal.activity.ScoreTable;
+import com.example.thuytran.personal.activity.newgui.Level;
 import com.example.thuytran.personal.model.Job;
 
 import java.util.ArrayList;
@@ -65,7 +66,7 @@ public class JobAdapter extends BaseAdapter implements Filterable {
 
             public void onClick(View v) {
                 Log.i("job", mDisplayedValues.get(position).getName());
-                Intent intent = new Intent(context, ScoreTable.class);
+                Intent intent = new Intent(context, Level.class);
                 Job job = new Job();
                 job = mDisplayedValues.get(position);
                 intent.putExtra("jobSelected", job);

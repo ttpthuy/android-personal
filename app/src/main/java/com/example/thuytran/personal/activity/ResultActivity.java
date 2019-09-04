@@ -9,6 +9,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import com.example.thuytran.personal.R;
+import com.example.thuytran.personal.activity.newgui.Homepage;
 import com.example.thuytran.personal.adapter.ResultAdapter;
 import com.example.thuytran.personal.model.Result;
 
@@ -37,7 +38,7 @@ public class ResultActivity extends AppCompatActivity {
 
     }
     public void backToMain(View view){
-        Intent intent = new Intent(ResultActivity.this, first.class);
+        Intent intent = new Intent(ResultActivity.this, Homepage.class);
         startActivity(intent);
     }
 

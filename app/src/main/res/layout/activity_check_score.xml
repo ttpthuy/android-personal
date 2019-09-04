@@ -3,11 +3,12 @@
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         tools:context=".activity.CheckScoreHandle"
         android:overScrollMode="always"
         android:background="#fff"
        >
+
     <!-- LinearLayout Inside ScrollView -->
     <LinearLayout
             android:layout_width="match_parent"
@@ -16,7 +17,17 @@
             android:layout_marginStart="30dp"
             android:layout_marginEnd="30dp"
          >
-
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tư vấn chọn nghành"
+                android:textColor="#1e9eae"
+                android:fontFamily="Roboto"
+                android:textSize="30sp"
+                android:layout_marginTop="30dp"
+                android:id="@+id/tvTitle"
+                android:layout_gravity="center"
+                />
         <!-- create a Linear Layout with horizontal orientation and weightSum property -->
 
         <LinearLayout
@@ -33,7 +44,7 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Lớp 10"
+                    android:text="Nhập điểm lớp 10 của bạn:"
                     android:textStyle="bold"
                     android:textSize="20dp"
                     />
@@ -42,7 +53,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/lop10View"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:layout_marginStart="30dp"
             android:layout_marginTop="20dp"
             android:layout_gravity="center"
@@ -63,7 +73,7 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Lớp 11"
+                    android:text="Nhập điểm lớp 11 của bạn:"
                     android:textStyle="bold"
                     android:textSize="20dp"
                     />
@@ -98,7 +108,7 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Lớp 12"
+                    android:text="Nhập điểm lớp 12 của bạn:"
                     android:textStyle="bold"
                     android:textSize="20dp"
                     />
@@ -133,7 +143,7 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Đại học"
+                    android:text="Nhập điểm đại học của bạn:"
                     android:textStyle="bold"
                     android:textSize="20dp"
                     />

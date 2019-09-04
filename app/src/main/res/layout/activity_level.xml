@@ -12,7 +12,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:text="Tư vấn chọn nghành"
-            android:textColor="#4dd0e1"
+            android:textColor="#1e9eae"
             android:fontFamily="Roboto"
             android:textSize="30sp"
             android:layout_marginTop="20dp"
@@ -20,11 +20,12 @@
             />
     <ImageView
             android:layout_width="200dp"
-            android:layout_height="150dp"
+            android:layout_height="120dp"
             android:layout_below="@+id/tvTitle"
-            android:src="@drawable/target"
+            android:src="@drawable/ic_pros_and_cons"
             android:id="@+id/logo"
             android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
             >
 
     </ImageView>
@@ -33,7 +34,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/title2"
             android:text="Bạn đang học lớp: "
-            android:textColor="#4dd0e1"
+            android:textColor="#1e9eae"
             android:fontFamily="sans-serif"
             android:textSize="20sp"
             android:layout_marginStart="20dp"
@@ -70,7 +71,7 @@
                     android:paddingTop="10dp"
                     android:text="Lớp 10"
                     android:textSize="14sp"
-                    android:textColor="#4dd0e1"/>
+                    android:textColor="#1e9eae"/>
             <RadioButton
                     android:id="@+id/lop11"
                     android:layout_width="match_parent"
@@ -87,7 +88,7 @@
                     android:paddingTop="10dp"
                     android:text="Lớp 11"
                     android:textSize="14sp"
-                    android:textColor="#4dd0e1"/>
+                    android:textColor="#1e9eae"/>
             <RadioButton
                     android:id="@+id/lop12"
                     android:layout_width="match_parent"
@@ -104,7 +105,7 @@
                     android:paddingTop="10dp"
                     android:text="Lớp 12"
                     android:textSize="14sp"
-                    android:textColor="#4dd0e1"/>
+                    android:textColor="#1e9eae"/>
             <RadioButton
                     android:id="@+id/daihoc"
                     android:layout_width="match_parent"
@@ -121,7 +122,7 @@
                     android:paddingTop="10dp"
                     android:text="Đại học"
                     android:textSize="14sp"
-                    android:textColor="#4dd0e1"/>
+                    android:textColor="#1e9eae"/>
 
 
         </RadioGroup>

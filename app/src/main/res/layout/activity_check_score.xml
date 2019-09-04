@@ -160,8 +160,10 @@
                 android:id="@+id/btnSendScore"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
                 android:text="Xong"
+                android:textColor="#fff"
+                android:background="#4dd0e1"
+                android:layout_margin="40dp"
                 />
     </LinearLayout>
 </ScrollView>

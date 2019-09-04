@@ -1,6 +1,7 @@
 package com.example.thuytran.personal.jsonconvert;
 
 import android.os.AsyncTask;
+import android.util.Log;
 import okhttp3.*;
 
 import java.io.IOException;
@@ -30,12 +31,15 @@ public class PostToServer extends AsyncTask<String, Void, String> {
 
         try {
             Response response = okHttpClient.newCall(request).execute();
+            if(!response.isSuccessful()){
+                Log.i("notsuccessful", "xxxxxxxxxxxxxx");
+            }
             return response.body().string();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        return null;
+        return "";
     }
 
 }

@@ -60,7 +60,7 @@ public class JobAdapter extends BaseAdapter implements Filterable {
         } else {
             holder = (JobViewHolder) convertView.getTag();
         }
-        holder.jobName.setText(mDisplayedValues.get(position).getName());
+        holder.jobName.setText(mDisplayedValues.get(position).getName().toUpperCase());
         holder.llContainer.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {

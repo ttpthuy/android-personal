@@ -64,7 +64,8 @@ public class ResultAdapter extends BaseAdapter {
                 result.setScore(0);
             }
             resultHolder.tv.setText(result.getScore() + "%");
-            resultHolder.result.setText(result.getName() + "\n" + result.getScore());
+            resultHolder.result.setText("Nghành: " + result.getName() + "\n"
+                    + "Độ phù hợp: "+ result.getScore());
             resultHolder.mProgress.setProgress((int) result.getScore());
         }else{
             resultHolder.noFit.setText("Xin lỗi bạn không phù hợp với nghành nào ở ĐH");

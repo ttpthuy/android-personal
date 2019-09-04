@@ -70,7 +70,6 @@ public class DownloadJSON extends AsyncTask<String, Void, String> {
             httpURLConnection.setRequestMethod("POST");
             httpURLConnection.setDoOutput(true);
             httpURLConnection.setDoInput(true);
-
             Uri.Builder builder = new Uri.Builder();
             int count = attrs.size();
             for (int i = 0; i < count; i++) {

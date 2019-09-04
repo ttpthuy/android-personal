@@ -77,6 +77,7 @@ public class CheckScoreHandle extends AppCompatActivity {
         }
         Log.i("sex", sex + "");
         Log.i("jobSelectedDSMH", subjects + "");
+        Log.i("jobSelectedDSMH1", job + "");
 
     }
     public void initElement() {
@@ -206,19 +207,23 @@ public class CheckScoreHandle extends AppCompatActivity {
 
             String url = "";
             if(job.getGroup() != null && !job.getGroup().isEmpty()  ){
-                url = "http://10.0.3.2:8080/Grquestion2_step2";
+                url = "http://192.168.42.2:8080/Grquestion2_step2";
                 jsonObject.put("jobOfG", job);
+                Log.i("duongdan", 111111 + "");
             }else{
-                url = "http://10.0.3.2:8080/Grquestion1_step1";
+                url = "http://192.168.42.2:8080/Grquestion1_step1";
+                Log.i("duongdan", 222222222 + "");
             }
             String s = gsonBuilder.toJson(jsonObject);
             RequestBody requestBody = new MultipartBody.Builder()
                     .addFormDataPart("s", s)
                     .setType(MultipartBody.FORM)
                     .build();
+            Log.i("duongdan", s );
             PostToServer postToServer = new PostToServer(url, requestBody);
 
             postToServer.execute();
+
             String dataJSON = postToServer.get();
             Log.i("miningques", dataJSON);
 

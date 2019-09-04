@@ -11,40 +11,46 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name="com.example.thuytran.personal.activity.first">
+        <activity android:name=".activity.newgui.Welcome">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name="com.example.thuytran.personal.activity.RowListView">
+        <activity android:name=".activity.RowListView">
         </activity>
-        <activity android:name="com.example.thuytran.personal.activity.Intro">
-        </activity>
-        <activity
-                android:label="@string/test"
-                android:name="com.example.thuytran.personal.activity.MainActivity">
+        <activity android:name=".activity.Intro">
         </activity>
         <activity
-                android:label="@string/scoreTable"
-                android:name="com.example.thuytran.personal.activity.CheckScoreHandle">
+                android:name=".activity.MainActivity"
+                android:label="@string/test">
         </activity>
         <activity
-                android:label="@string/score"
-                android:name="com.example.thuytran.personal.activity.ScoreTable">
+                android:name=".activity.CheckScoreHandle"
+                android:label="@string/scoreTable">
+        </activity>
+        <activity
+                android:name=".activity.ScoreTable"
+                android:label="@string/score">
         </activity>
         <!-- <activity android:name=".newgui.first"> -->
         <!-- </activity> -->
-        <activity android:name="com.example.thuytran.personal.activity.Welcome">
+        <activity android:name=".activity.Welcome">
         </activity>
         <activity
-                android:label="@string/job"
-                android:name="com.example.thuytran.personal.activity.Jobs">
+                android:name=".activity.Jobs"
+                android:label="@string/job">
         </activity>
         <activity
-                android:label="Kết quả"
-                android:name="com.example.thuytran.personal.activity.ResultActivity">
+                android:name=".activity.ResultActivity"
+                android:label="Kết quả">
+        </activity>
+        <!--<activity android:name=".activity.newgui.Welcome">-->
+        <!--</activity>-->
+        <activity android:name=".activity.newgui.Homepage">
+        </activity>
+        <activity android:name=".activity.newgui.Level">
         </activity>
     </application>
 

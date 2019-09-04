@@ -14,6 +14,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/number"
             android:layout_marginLeft="20dp"
+            android:textColor="#222"
 
     />
 
@@ -22,6 +23,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/textView"
             android:layout_marginLeft="20dp"
+            android:textSize="15sp"
+            android:textColor="#222"
 
     />
     <LinearLayout
@@ -29,6 +32,8 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+
     >
             <RadioButton
                     android:id="@+id/ans1"
@@ -36,6 +41,7 @@
                     android:layout_height="wrap_content"
                     android:checked="false"
                     android:text="1 "
+                    android:button="@drawable/radiocustom"
                     />
             <RadioButton
                     android:id="@+id/ans2"
@@ -43,6 +49,7 @@
                     android:layout_height="wrap_content"
                     android:checked="false"
                     android:text="2 "
+                    android:button="@drawable/radiocustom"
                     />
             <RadioButton
                     android:id="@+id/ans3"
@@ -50,6 +57,7 @@
                     android:layout_height="wrap_content"
                     android:checked="false"
                     android:text="3 "
+                    android:button="@drawable/radiocustom"
                     />
             <RadioButton
                     android:id="@+id/ans4"
@@ -57,6 +65,7 @@
                     android:layout_height="wrap_content"
                     android:checked="false"
                     android:text="4 "
+                    android:button="@drawable/radiocustom"
                     />
             <RadioButton
                     android:id="@+id/ans5"
@@ -64,6 +73,7 @@
                     android:layout_height="wrap_content"
                     android:checked="false"
                     android:text="5 "
+                    android:button="@drawable/radiocustom"
                     />
 
     </LinearLayout>

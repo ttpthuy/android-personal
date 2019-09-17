@@ -144,7 +144,9 @@ public class MainActivity extends AppCompatActivity implements OnOptionSelected 
         }
         Intent intent = new Intent(MainActivity.this, MainActivity.class);
         intent.putExtra("JHListQuestion",(ArrayList<QuestionAnswer>) questionModels);
+        intent.putExtra("flag", 3 +"");
         startActivity(intent);
+
     }
     public RequestBody postAnsToServer(){
         Toast.makeText(MainActivity.this,"DONE", Toast.LENGTH_SHORT).show();

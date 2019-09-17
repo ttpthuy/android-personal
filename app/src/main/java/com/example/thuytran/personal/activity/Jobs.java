@@ -53,7 +53,7 @@ public class Jobs extends AppCompatActivity {
     private void initialize() {
         etSearch = (EditText) findViewById(R.id.etSearch);
         lvJobs = (ListView)findViewById(R.id.lvJobs);
-        DownloadJSON downloadJSON = new DownloadJSON("http://10.0.3.2:8080/Grquestion2_step1");
+        DownloadJSON downloadJSON = new DownloadJSON("http://192.168.42.2:8080/Grquestion2_step1");
         downloadJSON.execute();
         try {
             String jobs = downloadJSON.get();
